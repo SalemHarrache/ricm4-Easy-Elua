@@ -1,0 +1,16 @@
+[submodule "summon-arm-toolchain"]
+        path = summon-arm-toolchain
+        url = git://github.com/esden/summon-arm-toolchain.git
+[submodule "elua"]
+        path = elua
+        url = git://github.com/elua/elua.git
+[submodule "libopencm3"]
+        path = libopencm3
+        url = git://libopencm3.git.sourceforge.net/gitroot/libopencm3/libopencm3 
+[submodule "stlink"]
+        path = stlink
+        url = git://github.com/texane/stlink.git
+[submodule "STM32F4-Discovery-Firmware"]
+        path = STM32F4-Discovery-Firmware
+        url = git://github.com/nabilt/STM32F4-Discovery-Firmware.git 
+
