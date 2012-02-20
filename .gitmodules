@@ -9,7 +9,7 @@
         url = git@github.com:SalemHarrache/libopencm3.git
 [submodule "stlink"]
         path = stlink
-        url = git://github.com/texane/stlink.git
+        url = git@github.com:SalemHarrache/stlink.git
 [submodule "STM32F4-Discovery-Firmware"]
         path = STM32F4-Discovery-Firmware
         url = git://github.com/nabilt/STM32F4-Discovery-Firmware.git 
