@@ -3,10 +3,10 @@
         url = git://github.com/esden/summon-arm-toolchain.git
 [submodule "elua"]
         path = elua
-        url = git://github.com/elua/elua.git
+        url = git@github.com:SalemHarrache/elua.git
 [submodule "libopencm3"]
         path = libopencm3
-        url = git://libopencm3.git.sourceforge.net/gitroot/libopencm3/libopencm3 
+        url = git@github.com:SalemHarrache/libopencm3.git
 [submodule "stlink"]
         path = stlink
         url = git://github.com/texane/stlink.git
