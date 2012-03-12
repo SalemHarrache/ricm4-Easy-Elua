@@ -1,0 +1,39 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1cm, right=1cm, top =2cm, bottom=2cm]{geometry}
+%opening
+\title{Arduino}
+\author{Salem \textsc{Harrache} \and Elizabeth \textsc{Paz}}
+\date{}
+
+\begin{document}
+\maketitle
+\section{Fonctions}
+
+\subsection{Digital I/O}
+
+\begin{tabular}{|l|l|}
+\hline
+pinMode(pin, mode) & local ledpin = pio.X \\
+ & pio.pin.setdir(ledpin,mode) \\ \hline \hline
+Configures the specified pin to behave either as an input or an output & Declared the variable that we are going to use \\
+pin - the number of the pin whose mode you wish to set & X- correspond to the pin in that platform \\
+mode - either INPUT or OUTPUT & \\ \hline
+
+digitalWrite(pin, value) & pio.pin.sethigh(pin) ou pio.pin.setlow(pin) \\
+Write a HIGH or a LOW value to a digital pin  & Set pin to high and low \\ \hline
+
+\hline \end{tabular}
+
+\subsection{Time}
+
+\begin{tabular}{|l|l|} \hline
+delay(ms) & tmr.delay( id, period )\\
+Pauses the program for the amount  & Waits for the specified period, then returns \\ 
+of time (in ms) specified as parameter & \\
+&  id - the timer ID and period - how long to wait (in us)\\
+\hline \end{tabular}
+
+
+
+\end{document}

@@ -16,3 +16,7 @@ stlink/example/*/*/*.bin
 stlink/example/*/*/*/*.bin
 stlink/example/*/*/*.a
 stlink/example/*/*/*/*.a
+*~
+*.aux
+*.log
+*.tex.backup
