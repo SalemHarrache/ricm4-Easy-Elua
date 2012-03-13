@@ -23,6 +23,8 @@ mode - either INPUT or OUTPUT & \\ \hline
 digitalWrite(pin, value) & pio.pin.sethigh(pin) ou pio.pin.setlow(pin) \\
 Write a HIGH or a LOW value to a digital pin  & Set pin to high and low \\ \hline
 
+digitalRead(pin) & pio.port.getval(pin) \\ 
+Reads the value from a specified digital pin, either HIGH or LOW &  \\ \hline
 \hline \end{tabular}
 
 \subsection{Time}
