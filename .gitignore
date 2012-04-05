@@ -20,3 +20,5 @@ stlink/example/*/*/*/*.a
 *.aux
 *.log
 *.tex.backup
+CodeSourcery/*
+activate_sourcery.sh
