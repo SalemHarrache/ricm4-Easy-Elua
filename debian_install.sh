@@ -14,10 +14,13 @@
 # Env
 
 SOURCERY_VERSION="2011.03-42"
+SOURCERY_URL="https://sourcery.mentor.com/sgpp/lite/arm/portal/package8734/public/arm-none-eabi/arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2"
+SOURCERY_ARCHIVE="arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2"
 SOURCERY_DIRNAME="arm-2011.03"
-mkdir "$(pwd)/env/"
+
 SOURCERY_TARGET="$(pwd)/env/CodeSourcery"
 STFLASH_TARGET="$(pwd)/env/utils"
+mkdir -p "$(pwd)/env/utils"
 
 ##############################
 
@@ -81,32 +84,38 @@ displaytitle "Install prerequisites"
 #displayandexec "Update the repositories list" $APT_GET update
 
 # prerequisite
-#displayandexec "Install development tools" "$APT_GET install build-essential python scons"
+displayandexec "Install development tools" $APT_GET install build-essential python scons
 
-#displaytitle "Install Sourcery ARM toolchain version $SOURCERY_VERSION"
+displaytitle "Install Sourcery ARM toolchain version $SOURCERY_VERSION"
 
 # toochain
-#displayandexec "Donwload Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" $WGET https://sourcery.mentor.com/sgpp/lite/arm/portal/package8734/public/arm-none-eabi/arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
+displayandexec "Donwload Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" "$WGET $SOURCERY_URL"
 
 # Extraction
-#displayandexec "Unpack Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" "tar -jxvf arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2; rm $SOURCERY_TARGET -fr 2> /dev/null 1>&2; mv $SOURCERY_DIRNAME $SOURCERY_TARGET;"
+rm $SOURCERY_TARGET -fr 2> /dev/null 1>&2
+displayandexec "Unpack Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" "tar -jxvf $SOURCERY_ARCHIVE;  mv $SOURCERY_DIRNAME $SOURCERY_TARGET"
 
 # script which enables toochain on demand
-#displayandexec "Create activate script for Sourcery G++" "echo \"export PATH=$SOURCERY_TARGET/bin:\$PATH\" > $(pwd)/activate_sourcery.sh"
+echo "export PATH=$SOURCERY_TARGET/bin:$STFLASH_TARGET:\$PATH" > ./activate_sourcery.sh
+
+displaytitle "Install ST-FLASH from stlink"
 
 # Donwload stlink
-displayandexec "Git clone stlink" "git clone git@github.com:SalemHarrache/stlink.git"
+displayandexec "Git clone stlink" git clone git@github.com:SalemHarrache/stlink.git
 
 # Make stlink
-source "$(pwd)/activate_sourcery.sh"
+source ./activate_sourcery.sh
 cd stlink
-displayandexec "Compiling st-flash" "make; mv flash/st-flash ../;"
+displayandexec "Compiling st-flash" make
+mv flash/st-flash $STFLASH_TARGET/
 cd ../
+
+displaytitle "Install elua"
 
 displayandexec "Git clone elua" git clone git@github.com:SalemHarrache/elua.git
 
 cd elua
-displayandexec "Compiling elua for STM32F4DSCY" "scons board=STM32F4DSCY prog"
+displayandexec "Compiling elua for STM32F4DSCY" scons board=STM32F4DSCY prog
 cd ../
 
 displayandexec "Clean" rm arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2 stlink -fr
@@ -124,3 +133,4 @@ echo "Elua floder:                      $(pwd)/elua"
 echo "Activate sourcery toolchain:      $(pwd)/activate_sourcery.sh"
 echo "-------------------------------------------------------------------------------"
 echo ""
+
