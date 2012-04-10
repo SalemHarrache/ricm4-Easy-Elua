@@ -11,11 +11,13 @@
 #
 
 #################################
-# Version de Sourcery a installer
+# Env
 
 SOURCERY_VERSION="2011.03-42"
 SOURCERY_DIRNAME="arm-2011.03"
-SOURCERY_TARGET="$(pwd)/CodeSourcery"
+mkdir "$(pwd)/env/"
+SOURCERY_TARGET="$(pwd)/env/CodeSourcery"
+STFLASH_TARGET="$(pwd)/env/utils"
 
 ##############################
 
@@ -75,33 +77,50 @@ displayandexec() {
 
 displaytitle "Install prerequisites"
 
-# MaJ des depots
-displayandexec "Update the repositories list" $APT_GET update
+# update system deposit
+#displayandexec "Update the repositories list" $APT_GET update
 
-# Pre-requis
-displayandexec "Install development tools" "$APT_GET install build-essential python scons"
+# prerequisite
+#displayandexec "Install development tools" "$APT_GET install build-essential python scons"
 
-displaytitle "Install Sourcery ARM toolchain version $SOURCERY_VERSION"
+#displaytitle "Install Sourcery ARM toolchain version $SOURCERY_VERSION"
 
-# Telechargement des fichiers
-displayandexec "Donwload Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" $WGET https://sourcery.mentor.com/sgpp/lite/arm/portal/package8734/public/arm-none-eabi/arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
+# toochain
+#displayandexec "Donwload Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" $WGET https://sourcery.mentor.com/sgpp/lite/arm/portal/package8734/public/arm-none-eabi/arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
 
-# Extract
-displayandexec "Unpack Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" "tar -jxvf arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2; rm $SOURCERY_TARGET -fr 2> /dev/null 1>&2; mv $SOURCERY_DIRNAME $SOURCERY_TARGET;"
+# Extraction
+#displayandexec "Unpack Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" "tar -jxvf arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2; rm $SOURCERY_TARGET -fr 2> /dev/null 1>&2; mv $SOURCERY_DIRNAME $SOURCERY_TARGET;"
 
-displayandexec "Create activate script for Sourcery G++" "echo \"export PATH=$SOURCERY_TARGET/bin:\$PATH\" > ./activate_sourcery.sh"
+# script which enables toochain on demand
+#displayandexec "Create activate script for Sourcery G++" "echo \"export PATH=$SOURCERY_TARGET/bin:\$PATH\" > $(pwd)/activate_sourcery.sh"
 
-displayandexec "Clean" rm arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2
+# Donwload stlink
+displayandexec "Git clone stlink" "git clone git@github.com:SalemHarrache/stlink.git"
+
+# Make stlink
+source "$(pwd)/activate_sourcery.sh"
+cd stlink
+displayandexec "Compiling st-flash" "make; mv flash/st-flash ../;"
+cd ../
+
+displayandexec "Git clone elua" git clone git@github.com:SalemHarrache/elua.git
+
+cd elua
+displayandexec "Compiling elua for STM32F4DSCY" "scons board=STM32F4DSCY prog"
+cd ../
+
+displayandexec "Clean" rm arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2 stlink -fr
+
 
 
 # Summary
 echo ""
+echo "Installation succeed !"
+
 echo "-------------------------------------------------------------------------------"
-echo "Instalation términé"
 echo "Sourcery toolchain folder:        $SOURCERY_TARGET/$SOURCERY_DIRNAME"
-echo "Script d'activation de sourcery:  $(pwd)/activate_sourcery.sh"
+echo "stlink flash utils floder:        $(pwd)/stlink/flask"
+echo "Elua floder:                      $(pwd)/elua"
+echo "Activate sourcery toolchain:      $(pwd)/activate_sourcery.sh"
 echo "-------------------------------------------------------------------------------"
 echo ""
-
-# Fin du script
-
