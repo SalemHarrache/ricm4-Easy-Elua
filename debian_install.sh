@@ -96,7 +96,7 @@ rm $SOURCERY_TARGET -fr 2> /dev/null 1>&2
 displayandexec "Unpack Sourcery G++ Lite $SOURCERY_VERSION for ARM EABI" "tar -jxvf $SOURCERY_ARCHIVE;  mv $SOURCERY_DIRNAME $SOURCERY_TARGET"
 
 # script which enables toochain on demand
-echo "export PATH=$SOURCERY_TARGET/bin:$STFLASH_TARGET:\$PATH" > ./activate_sourcery.sh
+echo "export PATH=$SOURCERY_TARGET/bin:$STFLASH_TARGET:\$PATH" > ./activate_env.sh
 
 displaytitle "Install ST-FLASH from stlink"
 
@@ -104,7 +104,7 @@ displaytitle "Install ST-FLASH from stlink"
 displayandexec "Git clone stlink" git clone git@github.com:SalemHarrache/stlink.git
 
 # Make stlink
-source ./activate_sourcery.sh
+source ./activate_env.sh
 cd stlink
 displayandexec "Compiling st-flash" make
 mv flash/st-flash $STFLASH_TARGET/
@@ -128,9 +128,9 @@ echo "Installation succeed !"
 
 echo "-------------------------------------------------------------------------------"
 echo "Sourcery toolchain folder:        $SOURCERY_TARGET/$SOURCERY_DIRNAME"
-echo "stlink flash utils floder:        $(pwd)/stlink/flask"
+echo "stlink flash utils floder:        $STFLASH_TARGET"
 echo "Elua floder:                      $(pwd)/elua"
-echo "Activate sourcery toolchain:      $(pwd)/activate_sourcery.sh"
+echo "Activate sourcery toolchain:      $(pwd)/activate_env.sh"
 echo "-------------------------------------------------------------------------------"
 echo ""
 

@@ -48,7 +48,7 @@ LOW = 0
 App = Class:new()
 
 function App:__new(name)
-    -- for debuging
+    -- Initialize object
     self.name = name
     self.uartid = 0
 end
@@ -61,41 +61,47 @@ function App:loop()
     return
 end
 
+function App:condition()
+    return uart.getchar( self.uartid, 0 ) == ""
+end
+
 function App:run()
     print("Run : " .. self.name)
     self:setup()
-    while uart.getchar( self.uartid, 0 ) == "" do
+    while self:condition() do
         self:loop()
     end
 end
 
-function App:pinMode(pin, mode)
+
+-- Fonctions similaires à l'api arduino
+function pinMode(pin, mode)
     if mode == OUTPUT or mode == INPUT then
         pio.pin.setdir(mode, pin)
     end
 end
 
-function App:digitalWrite(pin, value)
+function digitalWrite(pin, value)
     if value == HIGH or value == LOW then
         pio.pin.setval(value, pin)
     end
 end
 
-function App:digitalRead(pin)
+function digitalRead(pin)
     return pio.pin.getval(pin)
 end
 
-function App:delay(period)
+function delay(period)
     -- period in milliseconds
     tmr.delay( 0, period * 1000 )
 end
 
-function App:delayMicroseconds(period)
+function delayMicroseconds(period)
     -- period in us
     tmr.delay( 0, period)
 end
 
-function App:getPin(name)
+function getPin(name)
     -- return pin by name
     return pio[name]
 end
