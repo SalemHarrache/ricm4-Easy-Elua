@@ -40,27 +40,64 @@ function Class:new(super)
     return class
 end
 
+OUTPUT = pio.OUTPUT
+INPUT = pio.INPUT
+HIGH = 1
+LOW = 0
+
 App = Class:new()
 
 function App:__new(name)
     -- for debuging
     self.name = name
+    self.uartid = 0
 end
 
 function App:setup()
-    print("setup")
+    return
 end
 
 function App:loop()
-    print("loop")
+    return
 end
 
 function App:run()
-    print("run")
+    print("Run : " .. self.name)
     self:setup()
-    for i = 1,3 do
+    while uart.getchar( self.uartid, 0 ) == "" do
         self:loop()
     end
+end
+
+function App:pinMode(pin, mode)
+    if mode == OUTPUT or mode == INPUT then
+        pio.pin.setdir(mode, pin)
+    end
+end
+
+function App:digitalWrite(pin, value)
+    if value == HIGH or value == LOW then
+        pio.pin.setval(value, pin)
+    end
+end
+
+function App:digitalRead(pin)
+    return pio.pin.getval(pin)
+end
+
+function App:delay(period)
+    -- period in milliseconds
+    tmr.delay( 0, period * 1000 )
+end
+
+function App:delayMicroseconds(period)
+    -- period in us
+    tmr.delay( 0, period)
+end
+
+function App:getPin(name)
+    -- return pin by name
+    return pio[name]
 end
 
 return App
