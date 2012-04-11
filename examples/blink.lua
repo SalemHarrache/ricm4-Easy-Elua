@@ -3,8 +3,6 @@
 --  This example code is in the public domain.
 require("arduino_wraper")
 
-app = App:new("Blink led")
-
 function App:setup()
     self.ledpin = self:getPin("PD_13") -- Pin PD_13 has an LED connected
     self:pinMode(self.ledpin, OUTPUT) -- Initialize the digital pin as an output.
@@ -17,5 +15,6 @@ function App:loop()
     self:delay( 1000 )                      -- wait for a second
 end
 
+app = App:new("Blink led")
 app:run()
 
