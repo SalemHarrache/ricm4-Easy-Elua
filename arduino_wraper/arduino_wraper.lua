@@ -1,16 +1,3 @@
-
---function class()
---    local cls = {}
---    cls.__index = cls
---    return setmetatable(cls, {__call = function (c, ...)
---        instance = setmetatable({}, cls)
---        if cls.__init then
---            cls.__init(instance, ...)
---        end
---        return instance
---    end})
---end
-
 Class = {}
 
 function Class:new(super)
@@ -71,24 +58,10 @@ end
 function App:run()
     print("run")
     self:setup()
-    while true do
+    for i = 1,3 do
         self:loop()
     end
 end
 
-
-app = App:new("Main")
-
-
---function App:loop()
---    print("loop2")
---end
-
-
---function App:setup()
---    print("setup2")
---end
-
-
-app:run()
+return App
 
