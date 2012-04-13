@@ -13,10 +13,10 @@
 #################################
 # Env
 
-SOURCERY_VERSION="2011.03-42"
+SOURCERY_VERSION="2011.09-69"
 SOURCERY_URL="https://sourcery.mentor.com/sgpp/lite/arm/portal/package8734/public/arm-none-eabi/arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2"
 SOURCERY_ARCHIVE="arm-$SOURCERY_VERSION-arm-none-eabi-i686-pc-linux-gnu.tar.bz2"
-SOURCERY_DIRNAME="arm-2011.03"
+SOURCERY_DIRNAME="arm-2011.09"
 
 SOURCERY_TARGET="$(pwd)/env/CodeSourcery"
 STFLASH_TARGET="$(pwd)/env/utils"
@@ -84,7 +84,7 @@ displaytitle "Install prerequisites"
 #displayandexec "Update the repositories list" $APT_GET update
 
 # prerequisite
-displayandexec "Install development tools" $APT_GET install build-essential python scons
+displayandexec "Install development tools" $APT_GET install build-essential gcc-4.5 libusb-1.0 python scons
 
 displaytitle "Install Sourcery ARM toolchain version $SOURCERY_VERSION"
 
