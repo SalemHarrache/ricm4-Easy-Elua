@@ -4,6 +4,6 @@ env/*
 *.aux
 *.log
 *.tex.backup
-activate_sourcery.sh
+activate_env.sh
 elua
 stlink
