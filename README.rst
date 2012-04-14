@@ -14,11 +14,9 @@ rapidement.
 
 Couplé à la puissance d'eLua, Easy-eLua permet : 
 
-- Portabilité : Le code Lua produit est compatible avec diferrentes 
- architectures supportant elua.
+- Portabilité : Le code Lua produit est compatible avec diferrentes architectures supportant elua.
 
-- le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement.
- Testez vos idées directement sans besoin de simulations ou de futures modifications.
+- le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement. Testez vos idées directement sans besoin de simulations ou de futures modifications.
 
 Récupérer les sources
 =====================
