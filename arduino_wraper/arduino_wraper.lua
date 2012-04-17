@@ -181,7 +181,10 @@ end
 
 Serial1 = SerialPort:new(1)
 Serial2 = SerialPort:new(2)
+Serial3 = SerialPort:new(3)
+Serial4 = SerialPort:new(4)
+Serial5 = SerialPort:new(5)
 
 
-return App, Serial1, Serial2
+return App, Serial1, Serial2, Serial3, Serial4, Serial5
 
