@@ -115,6 +115,38 @@ function App:millis()
 end
 
 
+SerialPort = Class:new()
+
+function SerialPort:__new(uartid, baud, databits, parity, stopbits)
+    -- Initialize SerialPort
+    self.uartid = uartid
+    self.baud = baud or 115200
+    self.databits = databits or 8
+    self.parity = parity or uart.PAR_NONE
+    self.stopbits = stopbits or uart.STOP_1
+end
+
+function SerialPort:begin(baud)
+    -- Setup the serial port
+    -- Returns: The actual baud rate set on the serial port.
+    -- Depending on the hardware, this might have a different value than the
+    -- baud parameter
+    self.baud = baud or self.baud
+    return uart.setup( self.uartid, self.baud, self.databits, self.parity, self.stopbits )
+end
+
+function SerialPort:print(...)
+    value = string.format(...)
+    uart.write( self.uartid, value)
+end
+
+function SerialPort:println(...)
+    self:print(...)
+    self:print("\n")
+end
+
+
+
 -- Fonctions similaires à l'api arduino
 function pinMode(pin, mode)
     if mode == OUTPUT or mode == INPUT then
@@ -147,5 +179,9 @@ function getPin(name)
     return pio[name]
 end
 
-return App
+Serial1 = SerialPort:new(1)
+Serial2 = SerialPort:new(2)
+
+
+return App, Serial1, Serial2
 
