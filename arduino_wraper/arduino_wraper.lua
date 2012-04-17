@@ -95,19 +95,23 @@ end
 
 function App:run()
     print("Run : " .. self.name)
-    tmr.setclock( self.timerid , 1 )
-    self.start_counter = tmr.start( self.timerid )
+    tmr.setclock(self.timerid , 1)
+    self.start_counter = tmr.start(self.timerid)
     self:setup()
     while self:condition() do
         self:loop()
     end
 end
 
+function App:micros()
+    -- Number of microseconds since the program started
+    time = tmr.read(self.timerid)
+    return tmr.gettimediff(self.timerid, self.start_counter, time)
+end
+
 function App:millis()
-    -- Returns the number of milliseconds since the Arduino board began running
-    -- the current program.
-    time = tmr.read( self.timerid )
-    return tmr.gettimediff( self.timerid, self.start_counter, time )
+    -- Number of milliseconds since the program started
+    return self:micros() / 1000
 end
 
 
@@ -120,22 +124,22 @@ end
 
 function digitalWrite(pin, value)
     if value == HIGH or value == LOW then
-        pio.pin.setval(value, pin)
+        pio.pin.setval( value, pin )
     end
 end
 
 function digitalRead(pin)
-    return pio.pin.getval(pin)
+    return pio.pin.getval( pin )
 end
 
 function delay(period)
     -- period in milliseconds
-    tmr.delay( 0, period * 1000 )
+    tmr.delay( 0, period * 1000)
 end
 
 function delayMicroseconds(period)
     -- period in us
-    tmr.delay( 0, period)
+    tmr.delay(0, period)
 end
 
 function getPin(name)
