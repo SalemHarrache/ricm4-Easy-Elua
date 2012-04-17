@@ -15,7 +15,7 @@ STFLASH="$(pwd)/env/utils/st-flash"
 COMMAND="sudo $STFLASH write elua_lua_stm32f407vg.bin 0x08000000"
 
 flash() {
-    source activate_sourcery.sh
+    source activate_env.sh
     if test ! -d "elua"; then
         echo Erreur: Vous devez installer elua
         exit 1

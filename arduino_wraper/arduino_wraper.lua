@@ -1,3 +1,30 @@
+--                               __
+--  ___  __ _ ___ _   _    ___  / / _   _  __ _
+-- / _ \/ _` / __| | | |  / _ \/ / | | | |/ _` |
+--|  __/ (_| \__ \ |_| | |  __/ /__| |_| | (_| |
+-- \___|\__,_|___/\__, |  \___\____/\__,_|\__,_|
+--                |___/
+
+--Copyright (c) 2012 by Salem Harrache and Elizabeth Paz.
+
+--Some rights reserved.
+
+--Redistribution and use in source and binary forms of the software as well
+--as documentation, with or without modification, are permitted provided
+--that the following conditions are met:
+
+--* Redistributions of source code must retain the above copyright
+--  notice, this list of conditions and the following disclaimer.
+
+--* Redistributions in binary form must reproduce the above
+--  copyright notice, this list of conditions and the following
+--  disclaimer in the documentation and/or other materials provided
+--  with the distribution.
+
+--* The names of the contributors may not be used to endorse or
+--  promote products derived from this software without specific
+--  prior written permission.
+
 Class = {}
 
 function Class:new(super)
@@ -48,9 +75,10 @@ LOW = 0
 App = Class:new()
 
 function App:__new(name)
-    -- Initialize object
+    -- Initialize App
     self.name = name
     self.uartid = 0
+    self.timerid = 1
 end
 
 function App:setup()
@@ -67,10 +95,19 @@ end
 
 function App:run()
     print("Run : " .. self.name)
+    tmr.setclock( self.timerid , 1 )
+    self.start_counter = tmr.start( self.timerid )
     self:setup()
     while self:condition() do
         self:loop()
     end
+end
+
+function App:millis()
+    -- Returns the number of milliseconds since the Arduino board began running
+    -- the current program.
+    time = tmr.read( self.timerid )
+    return tmr.gettimediff( self.timerid, self.start_counter, time )
 end
 
 
