@@ -23,4 +23,3 @@ end
 
 app = App:new("Serial communication")
 app:run()
-

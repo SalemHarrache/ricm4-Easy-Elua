@@ -25,6 +25,12 @@
 --  promote products derived from this software without specific
 --  prior written permission.
 
+OUTPUT = pio.OUTPUT
+INPUT = pio.INPUT
+HIGH = 1
+LOW = 0
+
+
 Class = {}
 
 function Class:new(super)
@@ -67,86 +73,6 @@ function Class:new(super)
     return class
 end
 
-OUTPUT = pio.OUTPUT
-INPUT = pio.INPUT
-HIGH = 1
-LOW = 0
-
-App = Class:new()
-
-function App:__new(name)
-    -- Initialize App
-    self.name = name
-    self.uartid = 0
-    self.timerid = 1
-end
-
-function App:setup()
-    return
-end
-
-function App:loop()
-    return
-end
-
-function App:condition()
-    return uart.getchar( self.uartid, 0 ) == ""
-end
-
-function App:run()
-    print("Run : " .. self.name)
-    tmr.setclock(self.timerid , 1)
-    self.start_counter = tmr.start(self.timerid)
-    self:setup()
-    while self:condition() do
-        self:loop()
-    end
-end
-
-function App:micros()
-    -- Number of microseconds since the program started
-    time = tmr.read(self.timerid)
-    return tmr.gettimediff(self.timerid, self.start_counter, time)
-end
-
-function App:millis()
-    -- Number of milliseconds since the program started
-    return self:micros() / 1000
-end
-
-
-SerialPort = Class:new()
-
-function SerialPort:__new(uartid, baud, databits, parity, stopbits)
-    -- Initialize SerialPort
-    self.uartid = uartid
-    self.baud = baud or 115200
-    self.databits = databits or 8
-    self.parity = parity or uart.PAR_NONE
-    self.stopbits = stopbits or uart.STOP_1
-end
-
-function SerialPort:begin(baud)
-    -- Setup the serial port
-    -- Returns: The actual baud rate set on the serial port.
-    -- Depending on the hardware, this might have a different value than the
-    -- baud parameter
-    self.baud = baud or self.baud
-    return uart.setup( self.uartid, self.baud, self.databits, self.parity, self.stopbits )
-end
-
-function SerialPort:print(...)
-    value = string.format(...)
-    uart.write( self.uartid, value)
-end
-
-function SerialPort:println(...)
-    self:print(...)
-    self:print("\n")
-end
-
-
-
 -- Fonctions similaires à l'api arduino
 function pinMode(pin, mode)
     if mode == OUTPUT or mode == INPUT then
@@ -179,6 +105,75 @@ function getPin(name)
     return pio[name]
 end
 
+
+
+-- Serial communication object
+SerialPort = Class:new()
+
+function SerialPort:__new(uartid, baud, databits, parity, stopbits)
+    -- Initialize SerialPort
+    self.uartid = uartid
+    self.baud = baud or 115200
+    self.databits = databits or 8
+    self.parity = parity or uart.PAR_NONE
+    self.stopbits = stopbits or uart.STOP_1
+end
+
+function SerialPort:begin(baud)
+    -- Setup the serial port
+    -- Returns: The actual baud rate set on the serial port.
+    -- Depending on the hardware, this might have a different value than the
+    -- baud parameter
+    self.baud = baud or self.baud
+    return uart.setup( self.uartid, self.baud, self.databits, self.parity, self.stopbits )
+end
+
+function SerialPort:print(...)
+    value = string.format(...)
+    uart.write( self.uartid, value)
+end
+
+function SerialPort:println(...)
+    self:print(...)
+    self:print("\n")
+end
+
+function SerialPort:read()
+    -- Read a single character from the serial port
+    -- Return nil if no data is available
+    return uart.getchar(self.uartid, 0)
+end
+
+function SerialPort:readwait()
+    -- Read a single character from the serial port
+    -- Wait if no data is available
+    return uart.getchar(self.uartid, uart.INF_TIMEOUT)
+end
+
+function SerialPort:write(value)
+    -- Writes binary data to the serial port.
+    -- This data is sent as a byte or series of bytes; to send the characters
+    -- representing the digits of a number use the print() function instead.
+    if type(value) ~= "string" and type(value) ~= "number" then
+        value = string.format("%s", value)
+    end
+
+    if type(value) == "string" then
+        for i=1, string.len(a) do
+            uart.write( self.uartid, string.byte(a, i))
+        end
+        return string.len(a)
+    else
+        if value > 255 or value < 0 then
+            uart.write( self.uartid, string.byte(a, i))
+        else
+            return -1
+        end
+        return 1
+    end
+end
+
+Serial0 = SerialPort:new(0)
 Serial1 = SerialPort:new(1)
 Serial2 = SerialPort:new(2)
 Serial3 = SerialPort:new(3)
@@ -186,5 +181,57 @@ Serial4 = SerialPort:new(4)
 Serial5 = SerialPort:new(5)
 
 
-return App, Serial1, Serial2, Serial3, Serial4, Serial5
+-- App
+App = Class:new()
+
+function App:__new(name)
+    -- Initialize App
+    self.name = name
+    self.serial = Serial0
+    self.timerid = 1
+end
+
+function App:setup()
+    return
+end
+
+function App:loop()
+    return
+end
+
+function App:condition()
+    return self.serial:read() == ""
+end
+
+function App:run()
+    self:print("Run : " .. self.name)
+    tmr.setclock(self.timerid , 1)
+    self.start_counter = tmr.start(self.timerid)
+    self:setup()
+    while self:condition() do
+        self:loop()
+    end
+end
+
+function App:print(...)
+    self.serial:print(...)
+end
+
+function App:println(...)
+    self.serial:println(...)
+end
+
+function App:micros()
+    -- Number of microseconds since the program started
+    time = tmr.read(self.timerid)
+    return tmr.gettimediff(self.timerid, self.start_counter, time)
+end
+
+function App:millis()
+    -- Number of milliseconds since the program started
+    return self:micros() / 1000
+end
+
+
+return App, Serial0, Serial1, Serial2, Serial3, Serial4, Serial5
 
