@@ -34,6 +34,15 @@ HEX         = "HEX"
 OCT         = "OCT"
 DEC         = "DEC"
 USER_BTN    = pio.PA_0
+LED1        = pio.PD_12
+LED2        = pio.PD_13
+LED3        = pio.PD_14
+LED4        = pio.PD_15
+GREEN_LED   = LED1
+ORANGE_LED  = LED2
+RED_LED     = LED3
+BLUE_LED    = LED4
+
 
 --Utils
 
@@ -295,8 +304,8 @@ function App:condition()
 end
 
 function App:run()
-    self:setup()
     self:print("Run : " .. self.name)
+    self:setup()
     tmr.setclock(self.timerid , 1)
     self.start_counter = tmr.start(self.timerid)
     while self:condition() do

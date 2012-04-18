@@ -3,7 +3,7 @@ require("arduino_wraper")
 
 
 function App:setup()
-    self.ledpin = getPin("PD_13") -- Pin PD_13 has a LED connected
+    self.ledpin = RED_LED -- Pin PD_13 has a LED connected
     pinMode(self.ledpin, OUTPUT) -- Initialize the digital pin as an output.
 
     self.blink = false
