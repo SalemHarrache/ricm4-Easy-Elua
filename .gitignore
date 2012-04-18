@@ -1,9 +1,14 @@
-env
-env/*
 *~
 *.aux
 *.log
+*.nav
+*.out
+*.snm
+*.toc
 *.tex.backup
+*.pdf
+env
 activate_env.sh
 elua
 stlink
+
