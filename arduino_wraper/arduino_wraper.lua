@@ -167,7 +167,8 @@ function SerialPort:begin(baud)
     -- Depending on the hardware, this might have a different value than the
     -- baud parameter
     self.baud = baud or self.baud
-    return uart.setup( self.uartid, self.baud, self.databits, self.parity, self.stopbits )
+    return uart.setup( self.uartid, self.baud, self.databits, self.parity,
+                        self.stopbits )
 end
 
 function SerialPort:print(value, format)
@@ -298,6 +299,7 @@ function App:run()
     while self:condition() do
         self:loop()
     end
+    collectgarbage()
 end
 
 function App:print(...)
