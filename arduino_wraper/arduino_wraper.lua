@@ -25,24 +25,25 @@
 -- promote products derived from this software without specific
 -- prior written permission.
 
-OUTPUT = pio.OUTPUT
-INPUT = pio.INPUT
-HIGH = 1
-LOW = 0
-BIN = "BIN"
-HEX = "HEX"
-OCT = "OCT"
-DEC = "DEC"
+OUTPUT      = pio.OUTPUT
+INPUT       = pio.INPUT
+HIGH        = 1
+LOW         = 0
+BIN         = "BIN"
+HEX         = "HEX"
+OCT         = "OCT"
+DEC         = "DEC"
+USER_BTN    = pio.PA_0
 
 --Utils
 
-mod = math.mod
-floor = math.floor
-min = math.min
-max = math.max
-abs = math.abs
-pow = math.pow
-sqrt = math.sqrt
+mod     = math.mod
+floor   = math.floor
+min     = math.min
+max     = math.max
+abs     = math.abs
+pow     = math.pow
+sqrt    = math.sqrt
 
 function constrain(x, a, b)
     -- Constrains a number to be within a range.
@@ -277,6 +278,8 @@ function App:__new(name)
     self.name = name
     self.serial = Serial0
     self.timerid = 1
+    -- initialize button pin
+    pinMode(USER_BTN, INPUT)
 end
 
 function App:setup()
@@ -319,6 +322,10 @@ end
 function App:millis()
     -- Number of milliseconds since the program started
     return self:micros() / 1000
+end
+
+function App:btn_pressed()
+    return pio.pin.getval(USER_BTN) ~= 0
 end
 
 
