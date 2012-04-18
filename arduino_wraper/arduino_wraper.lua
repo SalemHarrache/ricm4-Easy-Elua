@@ -225,7 +225,12 @@ function SerialPort:print(value, format)
         elseif type (format) == "number" and format >= 0 then
             value = string.format("%." .. format .. "f", value)
         else
-            value = string.format("%.2f", value)
+            -- if value is float
+            if value ~= floor(value) then
+                value = string.format("%.2f", value)
+            else
+                value = string.format("%d", value)
+            end
         end
         uart.write( self.uartid, value)
     end
