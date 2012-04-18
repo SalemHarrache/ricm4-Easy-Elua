@@ -1,9 +1,9 @@
---                               __
---  ___  __ _ ___ _   _    ___  / / _   _  __ _
+--                              __
+-- ___  __ _ ___ _   _    ___  / / _   _  __ _
 -- / _ \/ _` / __| | | |  / _ \/ / | | | |/ _` |
 --|  __/ (_| \__ \ |_| | |  __/ /__| |_| | (_| |
 -- \___|\__,_|___/\__, |  \___\____/\__,_|\__,_|
---                |___/
+--               |___/
 
 --Copyright (c) 2012 by Salem Harrache and Elizabeth Paz.
 
@@ -14,22 +14,98 @@
 --that the following conditions are met:
 
 --* Redistributions of source code must retain the above copyright
---  notice, this list of conditions and the following disclaimer.
+-- notice, this list of conditions and the following disclaimer.
 
 --* Redistributions in binary form must reproduce the above
---  copyright notice, this list of conditions and the following
---  disclaimer in the documentation and/or other materials provided
---  with the distribution.
+-- copyright notice, this list of conditions and the following
+-- disclaimer in the documentation and/or other materials provided
+-- with the distribution.
 
 --* The names of the contributors may not be used to endorse or
---  promote products derived from this software without specific
---  prior written permission.
+-- promote products derived from this software without specific
+-- prior written permission.
 
 OUTPUT = pio.OUTPUT
 INPUT = pio.INPUT
 HIGH = 1
 LOW = 0
+BIN = "BIN"
+HEX = "HEX"
+OCT = "OCT"
+DEC = "DEC"
 
+--Utils
+
+mod = math.mod
+floor = math.floor
+min = math.min
+max = math.max
+abs = math.abs
+pow = math.pow
+sqrt = math.sqrt
+
+function constrain(x, a, b)
+    -- Constrains a number to be within a range.
+    -- Returns
+    --  x: the number to constrain, all data types
+    --  a: the lower end of the range, all data types
+    --  b: the upper end of the range, all data types
+    if a <= x and x <= b then
+        return x
+    elseif x < a then
+        return a
+    else
+        return b
+    end
+end
+
+function numberstring(number, base)
+    number = floor(number)
+    digits = {}
+    for i=0,9 do digits[i] = string.char(string.byte('0')+i) end
+    for i=10,36 do digits[i] = string.char(string.byte('A')+i-10) end
+    local s = ""
+    repeat
+      local remainder = mod(number,base)
+      s = digits[remainder]..s
+      number = (number-remainder)/base
+    until number==0
+    return s
+end
+
+-- Fonctions similaires à l'api arduino
+function pinMode(pin, mode)
+    if mode == OUTPUT or mode == INPUT then
+        pio.pin.setdir(mode, pin)
+    end
+end
+
+function digitalWrite(pin, value)
+    if value == HIGH or value == LOW then
+        pio.pin.setval( value, pin )
+    end
+end
+
+function digitalRead(pin)
+    return pio.pin.getval( pin )
+end
+
+function delay(period)
+    -- period in milliseconds
+    tmr.delay( 0, period * 1000)
+end
+
+function delayMicroseconds(period)
+    -- period in us
+    tmr.delay(0, period)
+end
+
+function getPin(name)
+    -- return pin by name
+    return pio[name]
+end
+
+-- Classes
 
 Class = {}
 
@@ -73,40 +149,6 @@ function Class:new(super)
     return class
 end
 
--- Fonctions similaires à l'api arduino
-function pinMode(pin, mode)
-    if mode == OUTPUT or mode == INPUT then
-        pio.pin.setdir(mode, pin)
-    end
-end
-
-function digitalWrite(pin, value)
-    if value == HIGH or value == LOW then
-        pio.pin.setval( value, pin )
-    end
-end
-
-function digitalRead(pin)
-    return pio.pin.getval( pin )
-end
-
-function delay(period)
-    -- period in milliseconds
-    tmr.delay( 0, period * 1000)
-end
-
-function delayMicroseconds(period)
-    -- period in us
-    tmr.delay(0, period)
-end
-
-function getPin(name)
-    -- return pin by name
-    return pio[name]
-end
-
-
-
 -- Serial communication object
 SerialPort = Class:new()
 
@@ -128,9 +170,54 @@ function SerialPort:begin(baud)
     return uart.setup( self.uartid, self.baud, self.databits, self.parity, self.stopbits )
 end
 
-function SerialPort:print(...)
-    value = string.format(...)
-    uart.write( self.uartid, value)
+function SerialPort:print(value, format)
+    -- Prints data to the serial port as human-readable ASCII text.
+    -- This method can take many forms. Numbers are printed using an ASCII
+    -- character for each digit. Floats are similarly printed as ASCII digits,
+    -- defaulting to two decimal places. Bytes are sent as a single character.
+    --
+    -- Characters and strings are sent as is. For example:
+    -- Serial.print(78) gives "78"
+    -- Serial.print(1.23456) gives "1.23"
+    -- Serial.print('N') gives "N"
+    -- Serial.print("Hello world.") gives "Hello world."
+
+    -- An optional second parameter specifies the base (format) to use;
+    -- permitted values are BIN (binary, or base 2), OCT (octal, or base 8),
+    -- DEC (decimal, or base 10), HEX (hexadecimal, or base 16). For floating
+    -- point numbers, this parameter specifies the number of decimal places
+    -- to use. For example:
+    --
+    -- Serial.print(78, BIN) gives "1001110"
+    -- Serial.print(78, OCT) gives "116"
+    -- Serial.print(78, DEC) gives "78"
+    -- Serial.print(78, HEX) gives "4E"
+    -- Serial.println(1.23456, 0) gives "1"
+    -- Serial.println(1.23456, 2) gives "1.23"
+    -- Serial.println(1.23456, 4) gives "1.2346"
+
+    if type (value) == "string" then
+        uart.write( self.uartid, value)
+    end
+
+    if type (value) == "number" then
+        if format ~= nil then
+            if format == BIN then
+                value = numberstring(value,2)
+            elseif format == OCT then
+                value = numberstring(value,8)
+            elseif format == DEC then
+                value = numberstring(value,10)
+            elseif format == HEX then
+                value = string.upper(numberstring(value,16))
+            end
+        elseif type (format) == "number" and format >= 0 then
+            value = string.format("%." .. format .. "f", value)
+        else
+            value = string.format("%.2f", value)
+        end
+        uart.write( self.uartid, value)
+    end
 end
 
 function SerialPort:println(...)
@@ -139,7 +226,7 @@ function SerialPort:println(...)
 end
 
 function SerialPort:read()
-    -- Read a single character from the serial port
+    -- Read a single or many character(s) from the serial port
     -- Return nil if no data is available
     return uart.getchar(self.uartid, 0)
 end
@@ -204,10 +291,10 @@ function App:condition()
 end
 
 function App:run()
+    self:setup()
     self:print("Run : " .. self.name)
     tmr.setclock(self.timerid , 1)
     self.start_counter = tmr.start(self.timerid)
-    self:setup()
     while self:condition() do
         self:loop()
     end
