@@ -255,25 +255,12 @@ end
 
 function SerialPort:write(value)
     -- Writes binary data to the serial port.
-    -- This data is sent as a byte or series of bytes; to send the characters
-    -- representing the digits of a number use the print() function instead.
-    if type(value) ~= "string" and type(value) ~= "number" then
-        value = string.format("%s", value)
+    -- to send the characters representing the digits of a number use
+    -- the print() function instead.
+    if type(value) ~= "number" then
+        value = string.byte(string.format("%s", value))
     end
-
-    if type(value) == "string" then
-        for i=1, string.len(a) do
-            uart.write( self.uartid, string.byte(a, i))
-        end
-        return string.len(a)
-    else
-        if value > 255 or value < 0 then
-            uart.write( self.uartid, string.byte(a, i))
-        else
-            return -1
-        end
-        return 1
-    end
+    uart.write(self.uartid, string.char("" .. value))
 end
 
 Serial0 = SerialPort:new(0)
@@ -299,7 +286,7 @@ function App:__new(name)
 end
 
 function App:setup()
-    self.terminated = true
+    return
 end
 
 function App:loop()
@@ -327,6 +314,14 @@ end
 
 function App:print(...)
     self.serial:print(...)
+end
+
+function App:read(...)
+    self.serial:read(...)
+end
+
+function App:write(...)
+    self.serial:write(...)
 end
 
 function App:println(...)
