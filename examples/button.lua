@@ -1,4 +1,7 @@
 -- Controle App with button example
+-- Button
+-- Turns on and off a light emitting diode(RED_LED), when 
+-- pressing a pushbutton B1. 
 require("arduino_wraper")
 
 
