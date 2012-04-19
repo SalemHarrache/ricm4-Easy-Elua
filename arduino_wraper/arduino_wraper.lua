@@ -292,12 +292,14 @@ function App:__new(name)
     self.name = name
     self.serial = Serial0
     self.timerid = 1
+    self.button = USER_BTN
     -- initialize button pin
-    pinMode(USER_BTN, INPUT)
+    pinMode(self.button, INPUT)
+    self.terminated = false
 end
 
 function App:setup()
-    return
+    self.terminated = true
 end
 
 function App:loop()
@@ -313,10 +315,14 @@ function App:run()
     self:setup()
     tmr.setclock(self.timerid , 1)
     self.start_counter = tmr.start(self.timerid)
-    while self:condition() do
+    while not self.terminated and self:condition() do
         self:loop()
     end
     collectgarbage()
+end
+
+function App:exit()
+    self.terminated = true
 end
 
 function App:print(...)
@@ -339,7 +345,7 @@ function App:millis()
 end
 
 function App:btn_pressed()
-    return pio.pin.getval(USER_BTN) ~= 0
+    return pio.pin.getval(self.button) ~= 0
 end
 
 
