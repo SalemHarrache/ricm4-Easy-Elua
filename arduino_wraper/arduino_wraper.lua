@@ -25,98 +25,7 @@
 -- promote products derived from this software without specific
 -- prior written permission.
 
-OUTPUT      = pio.OUTPUT
-INPUT       = pio.INPUT
-HIGH        = 1
-LOW         = 0
-BIN         = "BIN"
-HEX         = "HEX"
-OCT         = "OCT"
-DEC         = "DEC"
-USER_BTN    = pio.PA_0
-LED1        = pio.PD_12
-LED2        = pio.PD_13
-LED3        = pio.PD_14
-LED4        = pio.PD_15
-GREEN_LED   = LED1
-ORANGE_LED  = LED2
-RED_LED     = LED3
-BLUE_LED    = LED4
-
-
---Utils
-
-mod     = math.mod
-floor   = math.floor
-min     = math.min
-max     = math.max
-abs     = math.abs
-pow     = math.pow
-sqrt    = math.sqrt
-
-function constrain(x, a, b)
-    -- Constrains a number to be within a range.
-    -- Returns
-    --  x: the number to constrain, all data types
-    --  a: the lower end of the range, all data types
-    --  b: the upper end of the range, all data types
-    if a <= x and x <= b then
-        return x
-    elseif x < a then
-        return a
-    else
-        return b
-    end
-end
-
-function numberstring(number, base)
-    number = floor(number)
-    digits = {}
-    for i=0,9 do digits[i] = string.char(string.byte('0')+i) end
-    for i=10,36 do digits[i] = string.char(string.byte('A')+i-10) end
-    local s = ""
-    repeat
-      local remainder = mod(number,base)
-      s = digits[remainder]..s
-      number = (number-remainder)/base
-    until number==0
-    return s
-end
-
--- Fonctions similaires à l'api arduino
-function pinMode(pin, mode)
-    if mode == OUTPUT or mode == INPUT then
-        pio.pin.setdir(mode, pin)
-    end
-end
-
-function digitalWrite(pin, value)
-    if value == HIGH or value == LOW then
-        pio.pin.setval( value, pin )
-    end
-end
-
-function digitalRead(pin)
-    return pio.pin.getval( pin )
-end
-
-function delay(period)
-    -- period in milliseconds
-    tmr.delay( 0, period * 1000)
-end
-
-function delayMicroseconds(period)
-    -- period in us
-    tmr.delay(0, period)
-end
-
-function getPin(name)
-    -- return pin by name
-    return pio[name]
-end
-
--- Classes
-
+-- Define class type
 Class = {}
 
 function Class:new(super)
@@ -157,6 +66,96 @@ function Class:new(super)
     end
 
     return class
+end
+
+-- Global
+OUTPUT      = pio.OUTPUT
+INPUT       = pio.INPUT
+HIGH        = 1
+LOW         = 0
+BIN         = "BIN"
+HEX         = "HEX"
+OCT         = "OCT"
+DEC         = "DEC"
+USER_BTN    = pio.PA_0
+LED1        = pio.PD_12
+LED2        = pio.PD_13
+LED3        = pio.PD_14
+LED4        = pio.PD_15
+GREEN_LED   = LED1
+ORANGE_LED  = LED2
+RED_LED     = LED3
+BLUE_LED    = LED4
+
+
+-- Math Utils
+mod     = math.mod
+floor   = math.floor
+min     = math.min
+max     = math.max
+abs     = math.abs
+pow     = math.pow
+sqrt    = math.sqrt
+
+function constrain(x, a, b)
+    -- Constrains a number to be within a range.
+    -- Returns
+    --  x: the number to constrain, all data types
+    --  a: the lower end of the range, all data types
+    --  b: the upper end of the range, all data types
+    if a <= x and x <= b then
+        return x
+    elseif x < a then
+        return a
+    else
+        return b
+    end
+end
+
+function numberstring(number, base)
+    number = floor(number)
+    digits = {}
+    for i=0,9 do digits[i] = string.char(string.byte('0')+i) end
+    for i=10,36 do digits[i] = string.char(string.byte('A')+i-10) end
+    local s = ""
+    repeat
+      local remainder = mod(number,base)
+      s = digits[remainder]..s
+      number = (number-remainder)/base
+    until number==0
+    return s
+end
+
+-- Arduino API
+function pinMode(pin, mode)
+    if mode == OUTPUT or mode == INPUT then
+        pio.pin.setdir(mode, pin)
+    end
+end
+
+function digitalWrite(pin, value)
+    if value == HIGH or value == LOW then
+        pio.pin.setval( value, pin )
+    end
+end
+
+function digitalRead(pin)
+    return pio.pin.getval( pin )
+end
+
+function delay(period)
+    -- period in milliseconds
+    tmr.delay( 0, period * 1000)
+end
+
+function delayMicroseconds(period)
+    -- period in us
+    tmr.delay(0, period)
+end
+
+function getPin(name)
+    -- return pin by name
+    return pio[name]
 end
 
 -- Serial communication object
@@ -263,6 +262,7 @@ function SerialPort:write(value)
     uart.write(self.uartid, string.char("" .. value))
 end
 
+-- Define Serials object
 Serial0 = SerialPort:new(0)
 Serial1 = SerialPort:new(1)
 Serial2 = SerialPort:new(2)

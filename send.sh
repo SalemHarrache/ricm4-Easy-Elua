@@ -11,7 +11,6 @@
 #################################
 
 
-## Début
 if [ $# -ne 1 ]; then
     echo Erreur: vous devez spécifier le chemin
 else
