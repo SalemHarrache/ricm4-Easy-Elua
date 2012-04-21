@@ -12,7 +12,7 @@ end
 
 function App:loop()
     -- prints ending line break
-    self:print("\n")
+    self:println()
     -- ASCII, so 33, the first number,  will show up as '!'
     self:write(self.byte)
     -- prints value as simple number (base 10)

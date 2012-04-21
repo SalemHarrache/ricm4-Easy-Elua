@@ -2,8 +2,8 @@
 --   ___  __ _ ___ _   _    ___  / / _   _  __ _
 --  / _ \/ _` / __| | | |  / _ \/ / | | | |/ _` |
 -- |  __/ (_| \__ \ |_| | |  __/ /__| |_| | (_| |
--- \___|\__,_|___/\__, |  \___\____/\__,_|\__,_|
---               |___/
+--  \___|\__,_|___/\__, |  \___\____/\__,_|\__,_|
+--                 |___/
 
 --Copyright (c) 2012 by Salem Harrache and Elizabeth Paz.
 
@@ -206,6 +206,10 @@ function SerialPort:print(value, format)
     -- SerialPort.println(1.23456, 2) gives "1.23"
     -- SerialPort.println(1.23456, 4) gives "1.2346"
 
+    if value == nil then
+        return
+    end
+
     if type (value) == "string" then
         uart.write( self.uartid, value)
     end
@@ -237,7 +241,7 @@ end
 
 function SerialPort:println(...)
     self:print(...)
-    self:print("\n")
+    self:print("\r\n")
 end
 
 function SerialPort:read()
