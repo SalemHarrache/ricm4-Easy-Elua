@@ -1,7 +1,7 @@
---                              __
--- ___  __ _ ___ _   _    ___  / / _   _  __ _
--- / _ \/ _` / __| | | |  / _ \/ / | | | |/ _` |
---|  __/ (_| \__ \ |_| | |  __/ /__| |_| | (_| |
+--                                __
+--   ___  __ _ ___ _   _    ___  / / _   _  __ _
+--  / _ \/ _` / __| | | |  / _ \/ / | | | |/ _` |
+-- |  __/ (_| \__ \ |_| | |  __/ /__| |_| | (_| |
 -- \___|\__,_|___/\__, |  \___\____/\__,_|\__,_|
 --               |___/
 
@@ -187,10 +187,10 @@ function SerialPort:print(value, format)
     -- defaulting to two decimal places. Bytes are sent as a single character.
     --
     -- Characters and strings are sent as is. For example:
-    -- Serial.print(78) gives "78"
-    -- Serial.print(1.23456) gives "1.23"
-    -- Serial.print('N') gives "N"
-    -- Serial.print("Hello world.") gives "Hello world."
+    -- SerialPort.print(78) gives "78"
+    -- SerialPort.print(1.23456) gives "1.23"
+    -- SerialPort.print('N') gives "N"
+    -- SerialPort.print("Hello world.") gives "Hello world."
 
     -- An optional second parameter specifies the base (format) to use;
     -- permitted values are BIN (binary, or base 2), OCT (octal, or base 8),
@@ -198,13 +198,13 @@ function SerialPort:print(value, format)
     -- point numbers, this parameter specifies the number of decimal places
     -- to use. For example:
     --
-    -- Serial.print(78, BIN) gives "1001110"
-    -- Serial.print(78, OCT) gives "116"
-    -- Serial.print(78, DEC) gives "78"
-    -- Serial.print(78, HEX) gives "4E"
-    -- Serial.println(1.23456, 0) gives "1"
-    -- Serial.println(1.23456, 2) gives "1.23"
-    -- Serial.println(1.23456, 4) gives "1.2346"
+    -- SerialPort.print(78, BIN) gives "1001110"
+    -- SerialPort.print(78, OCT) gives "116"
+    -- SerialPort.print(78, DEC) gives "78"
+    -- SerialPort.print(78, HEX) gives "4E"
+    -- SerialPort.println(1.23456, 0) gives "1"
+    -- SerialPort.println(1.23456, 2) gives "1.23"
+    -- SerialPort.println(1.23456, 4) gives "1.2346"
 
     if type (value) == "string" then
         uart.write( self.uartid, value)
