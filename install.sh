@@ -27,7 +27,22 @@ mkdir -p "$(pwd)/env/utils"
 # Variables globales
 #-------------------
 
-APT_GET="sudo apt-get -q -y --force-yes"
+OS=$(lsb_release -si)
+if [ $OS = "Fedora" ]; then
+    DIST_INSTALL="sudo yum -q -y"
+    DIST_INSTALL_LIST="$DIST_INSTALL groupinstall \"Development Tools\"; $DIST_INSTALL install gcc libusb1-devel python scons git screen minicom"
+elif [ $OS = "Debian" ]; then
+    DIST_INSTALL="sudo apt-get -q -y --force-yes"
+    DIST_INSTALL_LIST="$DIST_INSTALL build-essential gcc-4.5 libusb-1.0 python scons git screen minicom"
+elif [ $OS = "Ubuntu" ]; then
+    DIST_INSTALL="sudo apt-get -q -y --force-yes"
+    DIST_INSTALL_LIST="$DIST_INSTALL build-essential gcc-4.5 libusb-1.0 python scons git screen minicom"
+else
+    echo Error: incompatible system
+    exit 1
+fi
+
+DIST_INSTALL="sudo apt-get -q -y --force-yes"
 WGET="wget --no-check-certificate"
 DATE=`date +"%Y%m%d%H%M%S"`
 LOG_FILE="/tmp/easy-elua-autoinstall-$DATE.log"
@@ -81,10 +96,10 @@ displayandexec() {
 displaytitle "Install prerequisites"
 
 # update system deposit
-#displayandexec "Update the repositories list" $APT_GET update
+#displayandexec "Update the repositories list" $DIST_INSTALL update
 
 # prerequisite
-displayandexec "Install development tools" $APT_GET install build-essential gcc-4.5 libusb-1.0 python scons
+displayandexec "Install development tools" $DIST_INSTALL_LIST
 
 displaytitle "Install Sourcery ARM toolchain version $SOURCERY_VERSION"
 

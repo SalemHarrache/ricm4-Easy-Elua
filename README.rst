@@ -39,7 +39,7 @@ de flash de stlink:
 ::
 
     $ cd ricm4-Easy-Elua.git
-    $ ./debian_install.sh
+    $ ./install.sh
     -------------------------------------------------------------------------------
     Install prerequisites
     -------------------------------------------------------------------------------
@@ -87,8 +87,7 @@ ou
 
 
 Pour lancer des programmes sur la carte, il faut utiliser le script flash.sh 
-suivi du nom de votre fichier. La carte doit etre branchée sur les deux ports 
-usb (alimentation + com).
+suivi du nom de votre fichier. La carte doit etre branchée en USB sur le port mini-USBA (alimentation).
 
 Vous devez importer le fichier arduino_wraper.lua en début du programme avec 
 l'instruction require("arduino_wraper")
@@ -179,8 +178,10 @@ dynamiquement !
 Envoyer les scripts via xmodem
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Pour pouvez envoyer votre script Lua par xmodem sur la carte à l'aide de la 
-commande recv.
+Si la carte est déjà flashée avec elua, vous pouvez envoyer votre script
+Lua par xmodem a l'aide des scripts send.sh et run_shell.sh
+
+TODO !!
 
 ::
 
