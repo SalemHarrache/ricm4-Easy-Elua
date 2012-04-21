@@ -33,10 +33,10 @@ if [ $OS = "Fedora" ]; then
     DIST_INSTALL_LIST="$DIST_INSTALL groupinstall \"Development Tools\"; $DIST_INSTALL install gcc libusb1-devel python scons git screen minicom"
 elif [ $OS = "Debian" ]; then
     DIST_INSTALL="sudo apt-get -q -y --force-yes"
-    DIST_INSTALL_LIST="$DIST_INSTALL build-essential gcc-4.5 libusb-1.0 python scons git screen minicom"
+    DIST_INSTALL_LIST="$DIST_INSTALL install build-essential gcc-4.5 libusb-1.0 python scons git screen minicom"
 elif [ $OS = "Ubuntu" ]; then
     DIST_INSTALL="sudo apt-get -q -y --force-yes"
-    DIST_INSTALL_LIST="$DIST_INSTALL build-essential gcc-4.5 libusb-1.0 python scons git screen minicom"
+    DIST_INSTALL_LIST="$DIST_INSTALL install build-essential gcc-4.5 libusb-1.0 python scons git screen minicom"
 else
     echo Error: incompatible system
     exit 1
