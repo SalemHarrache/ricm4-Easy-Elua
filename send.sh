@@ -11,6 +11,9 @@
 #################################
 
 
+SESSION_NAME="elua_shell_$(date +"%Y%m%d%H%M%S")"
+
+
 if [ $# -ne 1 ]; then
     echo Erreur: vous devez spécifier le chemin
 else
@@ -19,17 +22,10 @@ else
         echo Erreur: $file "n'est pas un fichier"
         exit 1
     fi
-    #screen -D -R -S elua_shell /dev/ttyUSB0 115200 8n1
-    #sh -c 'screen -dmS elua_shell /dev/ttyUSB0 115200 8n1 &'
-    #screen -D -R -S elua_shell /dev/ttyUSB0 115200 8n1
-    screen -dmS elua_shell /dev/ttyUSB0 115200 8n1
-    sleep 2
-    screen -S elua_shell -X eval "stuff ''^m"
-    screen -S elua_shell -X eval "stuff ''^m"
-    sleep 1
-    screen -S elua_shell -X eval "stuff 'recv'^m"
-    sleep 1
-    screen -S elua_shell -X eval "exec !! sx -Xb $file"
-    screen -x elua_shell
+    screen -dmS $SESSION_NAME /dev/ttyUSB0 115200 8n1
+    sh -c "sleep 1;screen -S $SESSION_NAME -X eval \"stuff ''^m\"" &
+    sh -c "sleep 2;screen -S $SESSION_NAME -X eval \"stuff 'recv'^m\"" &
+    sh -c "sleep 3;screen -S $SESSION_NAME -X eval \"exec !! sx -Xb $file\"" &
+    screen -D -R -S $SESSION_NAME
 fi
 
