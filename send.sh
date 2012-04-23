@@ -19,8 +19,17 @@ else
         echo Erreur: $file "n'est pas un fichier"
         exit 1
     fi
+    #screen -D -R -S elua_shell /dev/ttyUSB0 115200 8n1
+    #sh -c 'screen -dmS elua_shell /dev/ttyUSB0 115200 8n1 &'
+    #screen -D -R -S elua_shell /dev/ttyUSB0 115200 8n1
+    screen -dmS elua_shell /dev/ttyUSB0 115200 8n1
+    sleep 2
+    screen -S elua_shell -X eval "stuff ''^m"
+    screen -S elua_shell -X eval "stuff ''^m"
+    sleep 1
     screen -S elua_shell -X eval "stuff 'recv'^m"
     sleep 1
     screen -S elua_shell -X eval "exec !! sx -Xb $file"
+    screen -x elua_shell
 fi
 
