@@ -302,7 +302,7 @@ function App:condition()
 end
 
 function App:run()
-    self:print("Run : " .. self.name)
+    self:println("Run : " .. self.name)
     self:setup()
     tmr.setclock(self.timerid , 1)
     self.start_counter = tmr.start(self.timerid)

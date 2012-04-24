@@ -29,9 +29,6 @@ function App:loop()
     self:print(self.byte, BIN)
 
     self.byte = self.byte + 1
-    if self.byte == 126 then
-        return self:exit()
-    end
     delay(1000)
 end
 
