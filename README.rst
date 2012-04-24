@@ -5,16 +5,16 @@ Projet innovant RICM4 : Easy-eLua
 Description
 ===========
 
-Le but du projet est de simplifier la programation sur les cartes
+Le but du projet est de simplifier la programmation sur les cartes
 microcontroler STM32F4-DISCOVERY, en proposant une approche Arduino sur le
-projet opensource eLua,  qui implemente Lua sur de nombreuses autres cartes.
+projet opensource eLua,  qui implémente Lua sur de nombreuses autres cartes.
 Notre projet consiste à porter en Lua les principales fonctions Arduino, pour
-que n'importe qui venant du monde Arduino, puisse trouver ses reperes assez
+que n'importe qui venant du monde Arduino, puisse trouver ses repères assez
 rapidement.
 
 Couplé à la puissance d'eLua, Easy-eLua permet :
 
-- Portabilité : Le code Lua produit est compatible avec diferrentes architectures supportant elua.
+- Portabilité : Le code Lua produit est compatible avec différentes architectures supportant elua.
 
 - le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement. Testez vos idées directement sans besoin de simulations ou de futures modifications.
 
@@ -28,13 +28,13 @@ Le code source du projet est disponible sur github :
     $ git clone git@github.com:SalemHarrache/ricm4-Easy-Elua.git
 
 
-Instalation
+Installation
 ===========
 
 
 Une fois téléchargé, il faut lancer le script d’installation (debian/fedora)
 qui met en place l'environnement, à savoir Sourcery toolchain et l'utilitaire
-de flash de stlink:
+de flash de stlink :
 
 ::
 
@@ -87,7 +87,7 @@ ou
 
 
 Pour lancer des programmes sur la carte, il faut utiliser le script flash.sh
-suivi du nom de votre fichier. La carte doit etre branchée en USB sur le port mini-USBA (alimentation).
+suivi du nom de votre fichier. La carte doit être branchée en USB sur le port mini-USBA (alimentation).
 
 Vous devez importer le fichier arduino_wraper.lua en début du programme avec
 l'instruction require("arduino_wraper")
@@ -119,10 +119,10 @@ l'instruction require("arduino_wraper")
 
 Le script s'occupe d'ajouter le fichier arduino_wraper, de compiler elua, de
 flasher la carte avec l'image générée. Le programme (ici blink.lua) se lance
-automatiquement. (parfois il faut appuyer sur reset ou débrancher puis
-rebrancher l'alimentation)
+automatiquement (parfois il faut appuyer sur reset ou débrancher puis
+rebrancher l'alimentation).
 
-Lancement d'un programme a partir du shell Elua
+Lancement d'un programme à partir du shell Elua
 ===============================================
 
 Le Shell Elua
@@ -202,7 +202,7 @@ Lua par xmodem (avec screen) à l'aide du script send.sh
 Pour quitter screen, faites CTRL+A puis K
 
 
-Remarque : Il serait possible normalement de  sauvegarder le script directement
-sur la carte en spécifiant à recv le chemin, mais pour l'instant c'est pas
+Remarque : Il serait possible normalement de sauvegarder le script directement
+sur la carte en spécifiant à recv le chemin, mais pour l'instant ce n'est pas
 supporté pour la STM32F4-DISCOVERY.
 
