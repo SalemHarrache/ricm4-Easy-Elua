@@ -16,10 +16,11 @@ function App:setup()
 end
 
 function App:loop()
-    Serial1:print("Here is Serial1 ")
-    Serial2:println("Here is Serial2 ")
+    Serial1:print("1")
+    Serial2:println("2")
     delay(1000)     -- wait for a second
 end
 
 app = App:new("Serial communication")
 app:run()
+
