@@ -161,9 +161,9 @@ C'est important je pense de le mentionner :)
 \end{itemize}
 \item Time
 \begin{itemize}
-\item millis() -- Durée d'execution du programme
+\item millis()  $\to$ Durée d'execution du programme
 \item micros() 
-\item delay() -- Attente passive
+\item delay()  $\to$ Attente passive
 \item delayMicroseconds()
 \end{itemize}
 \end{enumerate}
@@ -286,7 +286,7 @@ end
 require("arduino_wrapper")
 
 function App:setup()
-    self.byte = 33 -- '!' ASCII character
+    self.byte = 33
 end
 
 function App:loop()
@@ -307,13 +307,15 @@ app:run()
 \end{lstlisting}}
 \end{frame}
 
+\section{Conclusion}
 \begin{frame}
 \frametitle{Conclusion}
 Couplé à la puissance d'eLua, Easy-eLua permet :
 \begin{itemize}
+\item Débuter dans la programmation pour l'embarqué.
 \item Portabilité : Le code Lua produit est compatible avec différentes architectures supportant elua.
 \item Le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement. Testez vos idées directement sans besoin de simulations ou de futures modifications. 
-\item Flexible products: Add modern high level script-language capabilities to your projects, resulting in highly adaptable, field-programable and reconfigurable designs. Efficient (and cheap!) future evolution to your systems.
+\item Fléxibilité : Lua, langage de programmation de haut niveau, permet toute sorte d'utilisation.
 \end{itemize}
 \end{frame}
 
