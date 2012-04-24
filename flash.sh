@@ -18,7 +18,7 @@ flash() {
         echo Erreur: Vous devez installer elua
         exit 1
     fi
-    if test ! -f "arduino_wraper/arduino_wraper.lua"; then
+    if test ! -f "arduino_wrapper/arduino_wrapper.lua"; then
         echo Erreur: il manque le fichier arduino_wrapper/arduino_wrapper.lua
         exit 1
     fi
