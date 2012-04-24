@@ -1,7 +1,7 @@
 --  Millis test
 --  prints time since program started
 
-require("arduino_wraper")
+require("arduino_wrapper")
 
 function App:loop()
     print(self.name .. " started since " .. self:millis() .. " ms")

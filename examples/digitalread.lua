@@ -1,7 +1,7 @@
 -- DigitalReadSerial
 -- Reads a digital input on pin PA0 (B1 user), prints the result to the serial
 -- monitor
-require("arduino_wraper")
+require("arduino_wrapper")
 
 -- the setup routine runs once when you press reset
 function App:setup()

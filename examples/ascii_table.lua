@@ -2,7 +2,7 @@
 -- Prints out byte values in all possible formats:
 --  * as raw binary values
 --  * as ASCII-encoded decimal, hex, octal, and binary values
-require("arduino_wraper")
+require("arduino_wrapper")
 
 -- the setup routine runs once when you press reset
 function App:setup()

@@ -1,6 +1,6 @@
 --  Serial communication
 --  Send data to various Serials port
-require("arduino_wraper")
+require("arduino_wrapper")
 
 -- Serial0 (Tx PB.6, Rx PB.7)
 -- Serial1 (Tx PA.2, Rx PA.3)

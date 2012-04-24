@@ -19,10 +19,10 @@ flash() {
         exit 1
     fi
     if test ! -f "arduino_wraper/arduino_wraper.lua"; then
-        echo Erreur: il manque le fichier arduino_wraper/arduino_wraper.lua
+        echo Erreur: il manque le fichier arduino_wrapper/arduino_wrapper.lua
         exit 1
     fi
-    cp ./arduino_wraper/arduino_wraper.lua ./elua/romfs/arduino_wraper.lua
+    cp ./arduino_wrapper/arduino_wrapper.lua ./elua/romfs/arduino_wrapper.lua
     cd elua
     scons board=STM32F4DSCY prog
     echo $COMMAND

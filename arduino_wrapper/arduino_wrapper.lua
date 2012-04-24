@@ -290,10 +290,13 @@ function App:__new(name)
 end
 
 function App:setup()
+    -- The setup function will only run once after each powerup or reset of the
+    -- board. Use it to initialize variables, pin modes, etc.
     return
 end
 
 function App:loop()
+    -- loops consecutively, allowing your program to change and respond
     return
 end
 

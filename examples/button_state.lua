@@ -7,7 +7,7 @@
 
 -- This example shows how to detect when a button or button changes from off
 -- to on and on to off.
-require("arduino_wraper")
+require("arduino_wrapper")
 
 
 function App:setup()

@@ -89,14 +89,14 @@ ou
 Pour lancer des programmes sur la carte, il faut utiliser le script flash.sh
 suivi du nom de votre fichier. La carte doit être branchée en USB sur le port mini-USBA (alimentation).
 
-Vous devez importer le fichier arduino_wraper.lua en début du programme avec
-l'instruction require("arduino_wraper")
+Vous devez importer le fichier arduino_wrapper.lua en début du programme avec
+l'instruction require("arduino_wrapper")
 
 ::
 
     --  Blink
     --  Turns on an LED on for one second, then off for one second, repeatedly.
-    require("arduino_wraper")
+    require("arduino_wrapper")
 
     function App:setup()
         pinMode(ORANGE_LED, OUTPUT) -- Initialize the digital pin as an output.
@@ -117,7 +117,7 @@ l'instruction require("arduino_wraper")
 
     $ ./flash.sh examples/blink.lua
 
-Le script s'occupe d'ajouter le fichier arduino_wraper, de compiler elua, de
+Le script s'occupe d'ajouter le fichier arduino_wrapper, de compiler elua, de
 flasher la carte avec l'image générée. Le programme (ici blink.lua) se lance
 automatiquement (parfois il faut appuyer sur reset ou débrancher puis
 rebrancher l'alimentation).
@@ -153,7 +153,7 @@ On se connecte avec screen en lançant le script run_shell.sh:
     eLua# ls
 
     /rom
-    arduino_wraper.lua             1976 bytes
+    arduino_wrapper.lua             1976 bytes
     autorun.lua                    679 bytes
 
     Total on /rom: 2655 bytes
@@ -170,7 +170,7 @@ dynamiquement !
     eLua# lua
     Press CTRL+Z to exit Lua
     Lua 5.1.4  Copyright (C) 1994-2011 Lua.org, PUC-Rio
-    > require("arduino_wraper")
+    > require("arduino_wrapper")
     > app = App:new("Hello Word!")
     > app:run()
     Run : Hello Word!

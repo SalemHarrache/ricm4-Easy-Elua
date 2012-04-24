@@ -1,5 +1,5 @@
 -- FancyLED
-require("arduino_wraper")
+require("arduino_wrapper")
 
 blink_toggle = function(value)
     digitalWrite(GREEN_LED, value)

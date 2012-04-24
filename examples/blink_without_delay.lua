@@ -2,7 +2,7 @@
 --  Turns on an LED on for one second, then off for one second, repeatedly
 --  without using the delay() function. This means that other code can run at
 --  the same time without being interrupted by the LED code.
-require("arduino_wraper")
+require("arduino_wrapper")
 
 function App:setup()
     self.ledpin = ORANGE_LED -- Pin PD_13 has a LED connected

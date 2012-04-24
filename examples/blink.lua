@@ -1,6 +1,6 @@
 --  Blink
 --  Turns on an LED on for one second, then off for one second, repeatedly.
-require("arduino_wraper")
+require("arduino_wrapper")
 
 function App:setup()
     self.ledpin = ORANGE_LED -- Pin PD_13 has a LED connected
