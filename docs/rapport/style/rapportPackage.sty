@@ -1,0 +1,100 @@
+\ProvidesPackage{style/rapportPackage}
+
+% ams math
+\usepackage{amsmath,amssymb}
+\usepackage[amsmath,hyperref,thmmarks]{ntheorem}
+\usepackage[amsmath,thmmarks]{ntheorem}
+
+% better fonts in pdf-versions
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+
+\usepackage[french]{babel}
+\usepackage{verbatim}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{ifpdf}
+\usepackage{fancyhdr}
+%\usepackage{lastpage} % for page xx of \pageref{LastPage}
+
+\usepackage{rotating}%sideways envirenment
+\usepackage{lscape} %landscape
+\usepackage{psfrag,color} %laprint
+\usepackage{pstricks} %basic pstricks support
+%\usepackage{pst-node,pst-text,pst-grad,pst-circ,gastex} %advanced features
+%(unsure if they work with pdflatex)
+\usepackage{curves} %curves in picture environment
+
+\usepackage[small,hang,bf,up]{caption}
+\usepackage[round,sort&compress]{natbib} % references. optional options
+\usepackage{url} %for list of references
+
+
+\usepackage[intoc,french,cfg]{nomencl}
+\makenomenclature
+\newcommand{\nomunit}[1]{%
+\renewcommand{\nomentryend}{\hspace*{\fill}#1}}
+
+
+
+% input files/scripts
+\usepackage{listings}
+\lstset{% general command to set parameter(s)
+    language=Matlab,                               % definer inputsproget
+    basicstyle=\footnotesize,                      % print whole listing small
+    keywordstyle=\bfseries,                        % underlined bold black keywords
+    identifierstyle=,                              % nothing happens
+    commentstyle=,                                  % white comments
+    stringstyle=\ttfamily,                         % typewriter type for strings
+    showstringspaces=false,                        % no special string spaces
+    numbers=left,                                  % side for linenumbers
+    numberstyle=\tiny,                             % numbersize
+    stepnumber=1,                                  % steps in numbering
+    numbersep=5pt,                                 % distance to listings
+    extendedchars=true,                            % danske tegn
+    breaklines=true,                               % auto. linjeskift
+    prebreak=...}                                  % indiker linjeskift med...
+
+%\usepackage{mcode}
+\usepackage{graphicx,subfig}
+
+%    LEVEL    : An entry is produced only if LEVEL < or = value of
+%               'tocdepth' counter.  Note, \chapter is level 0, \section
+%               is level 1, etc.
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+%prevent a single word from occupying a whole page
+%\clubpenalty=9999
+%\widowpenalty=9999
+
+%change margin locally to insert wide figures
+\def\quote{\list{}{\rightmargin\leftmargin}\item[]}
+\let\endquote=\endlist
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+%\begin{changemargin}{-1cm}{.5cm} "wide figure or table" \end{changemargin}
+
+
+% Links on/off for netversion
+\ifx\thesislinks\netversion
+  \ifpdf
+     \usepackage[plainpages=false,pdftex]{hyperref} %theseoptions may be necessary for pdflatex
+   \else%
+     \usepackage[plainpages=false]{hyperref}%
+     \usepackage{breakurl}%
+  \fi
+\else
+   \newcommand{\phantomsection}{}
+\fi
+
+
+\usepackage{algorithm,algorithmic}
+
+% Adjust captions to figure by \usepackage{caption}
+% (here) font=small and sans-serif (no feed), hang means no text under "`Figure nr", the last line is centered and the caption is in smaller than the textwidth (85%)
+\captionsetup{font={small,sf},labelfont=bf,format=hang,justification=centerlast,singlelinecheck=1,width=0.85\textwidth}
+
+%Adjust vertical space in tables
+%\renewcommand{\arraystretch}{1.2}

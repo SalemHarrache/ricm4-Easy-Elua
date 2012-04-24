@@ -1,0 +1,115 @@
+\documentclass[a4paper,11pt,twoside,openright,pdftex]{book}
+\usepackage{style/rapportPackage} 
+\usepackage{style/rapportlayout}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\RapportAuthor{Elizabeth PAZ \\ Salem HARRACHE}
+\def\ThesisAuthorForHyperref{Elizabeth PAZ, Salem HARRACHE}
+\def\RapportTitle{Easy eLua} %project title
+\def\Subtitle{eLua et approche Arduino sur STM32F4-DISCOVERY} %subtitle - if any
+\def\projecttype{Projet Innovant, Avril 2012} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%% Change settings: (compile twice )%%%%%%%%%%%%%%%%%%%%%%
+%\def\thesisversion{final} 
+%\def\thesislinks{no}
+%\def\thesislanguage{fr} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\frontmatter
+%\pagenumbering{alpha}
+\coverpages   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{roman}
+\pagestyle{fancyplain}		
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents  
+
+\addcontentsline{toc}{chapter}{List of Figures}
+
+\listoffigures
+
+\addcontentsline{toc}{chapter}{List of Tables}
+
+\listoftables
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\label{fancy:frontend} %for 'of page /x'
+
+\clearpage{\thispagestyle{empty}\cleardoublepage}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\mainmatter 
+%\setcounter{page}{1}\pagenumbering{arabic} 
+\pagestyle{fancytext}
+
+
+\addcontentsline{toc}{chapter}{Introduction}
+
+\markboth{Preface}{}
+
+	
+\input{file/introduction} 
+
+\input{file/Approche}
+\input{file/Elua}
+\input{file/Designer}
+\input{file/Avancement}
+\input{file/Difficulte}
+\input{file/Demo}
+
+\include{file/conclusion}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% BIBLIOGRAPHY: Build - bibtex to renew
+
+%\clearpage{\thispagestyle{empty}\cleardoublepage} \phantomsection 
+
+\addcontentsline{toc}{chapter}{Bibliographie}
+
+	
+\bibliographystyle{plainnat}
+
+\bibliography{bibbase}
+
+\markboth{Bibliography}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% APPENDIX:
+
+%\clearpage{\thispagestyle{empty}\cleardoublepage} \phantomsection 
+
+\appendix	
+
+	
+\addcontentsline{toc}{chapter}{Appendix}
+%\input{file/app1} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\label{fancy:mainend} %for 'of page /x'
+
+%\clearpage{\thispagestyle{empty}\cleardoublepage}
+
+
+\end{document}

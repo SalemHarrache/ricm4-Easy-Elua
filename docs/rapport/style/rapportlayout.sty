@@ -1,0 +1,162 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{style/rapportlayout}
+
+%%%%%%%%%%%%%%%%%%%%%%%   page geometry
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+%%%% MORE TEXT ON PAGES and no bad boxes
+%% Adjust the pagemargins to double
+\addtolength{\oddsidemargin}	{1cm}
+\addtolength{\evensidemargin}	{-2cm}
+\addtolength{\textwidth}		{1.2cm}
+\addtolength{\textheight}	{2.5cm}
+\addtolength{\voffset}		{-1cm}
+\addtolength{\footskip}		{1cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%   Headings:
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\thesection.\ #1}}}
+%\renewcommand{\headrulewidth}{\iffloatpage{0pt}{0pt}}
+
+\fancypagestyle{fancyplain}{% looks as ordinary plain
+\fancyhf{}
+\addtolength{\headheight}{1.8pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[RO,LE]{\sffamily\bfseries  \thepage/\pageref{fancy:frontend} }
+}
+
+\fancypagestyle{fancytext}{%
+\fancyhead{} % clear all header fields
+\addtolength{\headheight}{1.8pt}
+\fancyhead[RO,LE]{\nouppercase{\rightmark}}
+\fancyhead[LO,RE]{\nouppercase{\leftmark}}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\sffamily\bfseries\thepage/\pageref{fancy:mainend}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{fancychapter}{% the page with chapters in main
+\fancyhf{}
+\addtolength{\headheight}{1.8pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[RO,LE]{\sffamily\bfseries  \thepage/\pageref{fancy:mainend} }
+\markboth{}{}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%   Chapters:
+
+\renewcommand{\chaptername}{C h a p t e r }
+\renewcommand{\appendixname}{A p p e n d i x }
+\renewcommand{\nomname}{Nomenclature}
+
+\def\@makechapterhead#1{% For fancy chapters
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+   \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \large\scshape \@chapapp \space\space \Huge\upshape\thechapter
+        \par\nobreak
+        \vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \flushleft\parbox{\textwidth}{\raggedleft \sffamily\Huge\bfseries  #1 }
+     \par\nobreak
+     \vskip 15pt
+     \hrule height 0.4pt
+    \vskip 65\p@ %length from line to text
+  }
+  \thispagestyle{fancychapter}}
+
+\def\@makeschapterhead#1{% For plain chapters in mainmatter to the left
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+   \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+      	\ifnum \thechapter =0
+      	%Style just for preface in mainmatter
+		  \Huge\upshape \phantom{1}
+        	  \par\nobreak
+        	  \vskip 20\p@
+		  \interlinepenalty\@M
+    		  \flushleft\parbox{\textwidth}{\raggedleft \sffamily\Huge\bfseries  #1 }
+    		  \thispagestyle{fancychapter}
+      	\else
+      	  \sffamily\Huge\bfseries  #1
+      	  \thispagestyle{fancychapter}
+      	  %Nom Bio and *
+      	\fi
+        \else
+	\sffamily\huge\bfseries  #1
+	\thispagestyle{fancyplain}
+	% outside mainmatter
+	\fi
+   \fi
+    \par\nobreak
+    \vskip 15pt
+    \hrule height 0.4pt
+    \vskip 65\p@ %length from line to text
+  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\makefrontpage}
+{\begin{titlepage}%
+    \begin{pspicture}(0cm,0cm)(\textwidth,\textheight)
+      %\psgrid
+
+      \rput[bl](-1cm,-1cm){\textsf{RICM 4A}}
+      \rput[tr](15,24){\includegraphics[scale=0.8]{figure/logo.png} \ \includegraphics[scale=0.5]{figure/easyelua.png}}
+
+
+      \rput[tl](0.08\textwidth,0.85\textheight){
+        \begin{minipage}[t]{14cm}
+
+          \textit{\textsf{\Large{
+                \begingroup
+                \tabcolsep -2mm
+                \begin{tabular}{l}
+                  \RapportAuthor
+                \end{tabular}
+                \endgroup }}}
+
+          \vspace*{0.18\textheight}
+
+          \begin{flushleft}
+            \Huge{\textsf{\textbf{\RapportTitle}}}
+          \end{flushleft}
+
+          \vspace*{0.05\textheight}
+
+          \begin{flushleft}
+            \LARGE{\textsf{\textbf{\Subtitle}}}
+          \end{flushleft}
+
+          \vspace*{0.05\textheight}
+          \textsf{\Large{\projecttype}}
+        \end{minipage}}
+    \end{pspicture}
+   \end{titlepage}%
+  \setcounter{footnote}{0}
+  %\newpage\thispagestyle{empty}
+ }
+
+\newcommand{\emptypage}
+{\begin{titlepage}%
+    \begin{pspicture}(0cm,0cm)(\textwidth,\textheight)
+    \end{pspicture}
+   \end{titlepage}%
+  \setcounter{footnote}{0}%
+ }
+
+
+\newcommand*{\coverpages}{\makefrontpage}
+
