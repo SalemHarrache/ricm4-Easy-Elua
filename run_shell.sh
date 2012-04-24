@@ -1,10 +1,9 @@
 #!/bin/bash
 #
-# Script pour flasher un programme easy-elua
+# Run eLua shell
 #
 # Authors : Salem Harrache
 #           Elizabeth Paz
-# LGPL
 #
 # Syntaxe: # ./run_shell.sh"
 #

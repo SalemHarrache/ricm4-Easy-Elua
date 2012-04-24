@@ -1,15 +1,13 @@
 #!/bin/bash
 #
-# Script pour flasher un programme easy-elua
+# Flash a easy-Elua program to the board
 #
 # Authors : Salem Harrache
 #           Elizabeth Paz
-# LGPL
 #
 # Syntaxe: # ./flash.sh [myprogram.lua]"
 #
 #################################
-# Env
 
 STFLASH="$(pwd)/env/utils/st-flash"
 COMMAND="sudo $STFLASH write elua_lua_stm32f407vg.bin 0x08000000"
@@ -32,7 +30,7 @@ flash() {
     cd ../
 }
 
-## Début
+## Begin
 if [ $# -ne 1 ]; then
     flash
 else

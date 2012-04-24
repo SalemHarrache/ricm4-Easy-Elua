@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Script pour envoyer un programme easy_elua par xmodem
+# Send a easy-Elua program to the board via xmodem (without flash)
 #
 # Authors : Salem Harrache
 #           Elizabeth Paz
