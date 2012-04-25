@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter[Fonctions portées]{Fonctions portées}
+\label{chap:chap6}
+
+
+L'environnement eLua est très riche.
+La plupart des portages qu’on a réalisés sont assez courts et dépassent rarement les 10 lignes. Voici les principales fonctions portées.
+
+\section{Entrées/Sorties numériques}
+
+Ce sont les fonctions de base d’entrée sortie qui vont permettre d’interagir avec l’extérieur.  Trois fonctions ont été réalisées: 
+
+\begin{description}
+ \item[pinMode(): ] Cette fonction spécifie le mode (INPUT ou OUTPUT) d’une broche. 
+Cette fonction existe déjà dans eLua, mais elle porte un autre nom, le portage est donc très court:
+
+\begin{table}[h]
+\begin{lstlisting}
+function pinMode(pin, mode)
+           if mode == OUTPUT or mode == INPUT then
+               pio.pin.setdir(mode, pin)
+           end
+end
+\end{lstlisting}
+\caption{Fonction $pinMode$}
+\end{table}
+
+\item[digitalWrite(): ] Envoie la valeur HIGH ou LOW (respectivement 1 ou 0) sur une broche. De même que $pinMode()$ 
+le portage ne pose pas de problème puisque cette fonction (comme on peut s’en douter) est disponible dans l’environnement eLua.
+\newpage
+\begin{table}[h]
+\begin{lstlisting}
+Function digitalWrite(pin, value)
+	    if value == HIGH or value == LOW then
+              pio.pin.setval( value, pin )
+	    end
+end
+\end{lstlisting}
+\caption{Fonction $digitalWrite$}
+\end{table}
+
+\item[digitalRead(): ] DigitalRead permet de lire la valeur de la broche. Cette valeur est soit de 0 soit de 1.
+\begin{table}[h]
+\begin{lstlisting}
+functiondigitalRead(pin)
+          return pio.pin.getval( pin )
+end
+\end{lstlisting}
+\caption{Fonction $digitalRead$}
+\end{table}
+
+
+\end{description}
+
+\section{Communication série}
+
+Pour l'entrée/sortie série, nous avons implémenté la classe Serial proposée par Arduino.
+
+\begin{table}[h]
+\begin{lstlisting}
+-- Serial communication object
+SerialPort=Class:new()
+
+function SerialPort:__new(uartid, baud,databits, parity,stopbits)
+    -- Initialize SerialPort
+    self.uartid = uartid
+    self.baud = baud or 115200
+    self.databits = databits or 8
+    self.parity= parity or uart.PAR_NONE
+    self.stopbits=stopbits or uart.STOP_1
+end
+\end{lstlisting}
+\caption{Entrée/Sortie}
+\end{table}
+
+La carte STM32F4-DISCOVERY dispose de 6 modules UART (Universal Asynchronous Receiver Transmitter) dont deux synchrones (USART).
+ Dans la librairie Arduino, ces modules peuvent être utilisés par des objets nommés \textbf{Serialx} où x est l’identifiant de l’UART. 
+Nous disposons donc dans Easy-eLua de 6 objets Serial accessibles directement depuis le programme, puisqu’ils sont initialisés 
+directement dans le fichier \textit{arduino\_wrapper.lua}.
+
+\begin{table}[h]
+\begin{lstlisting}
+-- Define Serials object
+Serial0 =SerialPort:new(0)
+Serial1 =SerialPort:new(1)
+Serial2 =SerialPort:new(2)
+Serial3 =SerialPort:new(3)
+Serial4 =SerialPort:new(4)
+Serial5 =SerialPort:new(5)
+\end{lstlisting}
+\caption{Objets Serial}
+\end{table}
+
+\newpage
+La classe dispose bien évidemment d’une méthode $begin()$
+qui initialise la connexion série. Dans ce cas les broches ne peuvent plus être utilisées avec $digitalWrite()$ et $digitalRead()$.
+
+\begin{table}[h]
+\begin{lstlisting}
+function SerialPort:begin(baud)
+    -- Setup the serial port
+    -- Returns: The actual baud rate set on the serial port.
+    -- Depending on the hardware, this might have a different value than
+    -- thebaud parameter
+    self.baud = baud or self.baud
+    return uart.setup(self.uartid,self.baud,self.databits,self.parity,
+                                                       self.stopbits)
+end
+\end{lstlisting}
+\caption{Classe $begin$}
+\end{table}
+
+La fonction la plus intéressante (nous ne détaillerons pas les autres ici) c’est bien évidemment la fonction $print()$ 
+qui permet d’envoyer des données avec différents formatages possibles:
+\newpage
+\begin{table}[h!]
+\begin{lstlisting}
+functionSerialPort:print(value,format)
+    -- Prints data to the serial port as human-readable ASCII text.
+    -- This method can take many forms. Numbers are printed using 
+	an ASCII
+    -- character for each digit. Floats are similarly printed 
+	as ASCII digits,
+    -- defaulting to two decimal places. Bytes are sent as a 
+	single character.
+    -- Characters and strings are sent as is. For example:
+    -- SerialPort.print(78) gives "78"
+    -- SerialPort.print(1.23456) gives "1.23"
+    -- SerialPort.print('N') gives "N"
+    -- SerialPort.print("Hello world.") gives "Hello world."
+
+    -- An optional second parameter specifies the base (format) 
+	to use;
+    -- permitted values are BIN (binary, or base 2), OCT (octal, 
+	or base 8),
+    -- DEC (decimal, or base 10), HEX (hexadecimal, or base 16). 
+    -- For floating point numbers, this parameter specifies
+    -- the number of decimal places  to use. For example:
+    -- SerialPort.print(78, BIN) gives "1001110"
+    -- SerialPort.print(78, OCT) gives "116"
+    -- SerialPort.print(78, DEC) gives "78"
+    -- SerialPort.print(78, HEX) gives "4E"
+    -- SerialPort.println(1.23456, 0) gives "1"
+    -- SerialPort.println(1.23456, 2) gives "1.23"
+    -- SerialPort.println(1.23456, 4) gives "1.2346"
+
+    if value == nil then
+        return
+    end
+
+    if type(value) == "string" then
+        uart.write(self.uartid, value)
+    end
+
+    if type(value) == "number" then
+        if format ~= nil then
+            if format == BIN then
+                value = numberstring(value,2)
+            elseif format == OCT then
+                value = numberstring(value,8)
+            elseif format == DEC then
+                value = numberstring(value,10)
+            elseif format == HEX then
+                value=string.upper(numberstring(value,16))
+            end
+        elseif type(format) == "number" and format>=0 then
+            value=string.format("%."..format.."f", value)
+        else
+            -- if value is float
+            if value ~= floor(value)then
+                value = string.format("%.2f", value)
+            else
+                value = string.format("%d", value)
+            end
+        end
+        uart.write(self.uartid, value)
+    end
+end
+\end{lstlisting}
+\caption{Fonction $print$}
+\end{table}
+\newpage
+Nous sommes restés le plus fidèle possible à la fonction initiale de Arduino.
+
+
+

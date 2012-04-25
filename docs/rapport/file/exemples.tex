@@ -1,0 +1,126 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter[Exemples]{Exemples} 
+
+\section{Blink}
+
+\subsection{Version Arduino}
+
+\begin{table}[h]
+\begin{lstlisting}
+/*
+  Blink
+Turns on an LED on for one second, then off for one second, repeatedly.
+
+  This example code is in the public domain.
+ */
+
+// Pin 13 has an LED connected on most Arduino boards.
+// give it a name:
+int led =13;
+
+// the setup routine runs once when you press reset:
+void setup(){
+    // initialize the digital pin as an output.
+    pinMode(led, OUTPUT);
+}
+
+// the loop routine runs over and over again forever:
+void loop(){
+    digitalWrite(led, HIGH);// turn the LED on (HIGH is the voltage level)
+    delay(1000);// wait for a second
+    digitalWrite(led, LOW);// turn the LED off by making the voltage LOW
+    delay(1000);// wait for a second
+}
+\end{lstlisting}
+\caption{Blink: version Arduino}
+\end{table}
+
+\subsection{Version Easy-eLua}
+
+\begin{table}[h]
+\begin{lstlisting}
+--  Blink
+--  Turns on an LED on for one second, then off for one second, repeatedly.
+require("arduino_wraper")
+
+functionApp:setup()
+    self.ledpin= ORANGE_LED -- Pin PD_13 has a LED connected
+    pinMode(self.ledpin, OUTPUT)-- Initialize the digital pin as an output.
+end
+
+functionApp:loop()
+    digitalWrite(self.ledpin, HIGH)-- set the LED on
+    delay(1000)-- wait for a second
+    digitalWrite(self.ledpin, LOW)-- set the LED off
+    delay(1000)-- wait for a second
+end
+
+app=App:new("Blink led")
+app:run()
+\end{lstlisting}
+\caption{Blink: version Easy-eLua}
+\end{table}
+
+
+%%%
+\newpage
+\section{DigitalRead}
+
+\subsection{Version Arduino}
+
+\begin{table}[h]
+\begin{lstlisting}
+/*
+  DigitalReadSerial
+ Reads a digital input on pin 2, prints the result to the serial monitor 
+
+ This example code is in the public domain.
+ */
+
+// digital pin 2 has a pushbutton attached to it. Give it a name:
+intpushButton=2;
+
+// the setup routine runs once when you press reset:
+void setup(){
+    // initialize serial communication at 9600 bits per second:
+    Serial.begin(9600);
+    // make the pushbutton's pin an input:
+    pinMode(pushButton, INPUT);
+}
+
+// the loop routine runs over and over again forever:
+void loop(){
+    // read the input pin:
+    intbuttonState=digitalRead(pushButton);
+    // print out the state of the button:
+    Serial.println(buttonState);
+}
+\end{lstlisting}
+\caption{DigitalRead: version Arduino}
+\end{table}
+\newpage
+\subsection{Version Easy-eLua}
+
+\begin{table}[h]
+\begin{lstlisting}
+-- DigitalReadSerial
+-- Reads a digital input on pin PA0 (B1 user), prints the result to the serial
+-- monitor
+require("arduino_wraper")
+
+-- the setup routine runs once when you press reset
+functionApp:setup()
+    Serial2:begin(9600)-- initialize serial com at 9600 bits per second
+    pinMode(USER_BTN, INPUT)-- Initialize the digital pin as an output.
+end
+
+functionApp:loop()
+    buttonState=digitalRead(USER_BTN)-- read the input pin
+    Serial2:print(buttonState)-- print out the state of the button
+end
+
+app=App:new("DigitalRead Serial")
+app:run()
+\end{lstlisting}
+\caption{DigitalRead: version Easy-eLua}
+\end{table}

@@ -1,0 +1,164 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter[Nouveaux concepts]{Nouveaux concepts}
+
+La structure générale d'un programme Arduino repose sur les méthodes setup() et loop().
+Le méthode loop() qui constitue le cœur du programme sera appelée indéfiniment, tandis que la méthode setup() elle, 
+sert seulement à initialiser les variables et le contexte d'exécution au début du programme.
+
+Partant de ce constat, on a décidé de donner une orientation objet à nos programmes lua. En effet 
+ce choix peut être contestable, mais il nous est paru important pour mettre en place une API efficace.
+
+Lua n'est pas pourvu de type ``class'', mais il permet de programmer le comportement de ses propres objets/types. 
+Autrement dit, il est certes très léger, mais c'est un langage tout désigné pour la méta-programmation. 
+Le mécanisme de classe, et d’héritage est défini par les lignes suivantes:
+
+\newpage
+\begin{table}[h]
+\begin{lstlisting}
+function Class:new(super)
+    local class,metatable, properties = {},{},{}
+    class.metatable=metatable
+    class.properties=properties
+
+    function metatable:__index(key)
+        local prop = properties[key]
+        if prop then
+            return prop.get(self)
+        elseif class[key] ~=nil then
+            return class[key]
+        elseif super then
+            return super.metatable.__index(self, key)
+        else
+            return nil
+        end
+    end
+
+    function metatable:__newindex(key, value)
+        local prop = properties[key]
+        if prop then
+            return prop.set(self, value)
+        elseif super then
+            return super.metatable.__newindex(self, key, value)
+        else
+            rawset(self, key, value)
+        end
+    end
+
+    functionclass:new(...)
+        local obj=setmetatable({},self.metatable)
+        if obj.__new then
+            obj:__new(...)
+	end
+        return obj
+    end
+    return class
+end
+\end{lstlisting}
+\caption{Classe $new$}
+\end{table} 
+
+\newpage
+
+Grâce à ce nouveau type, nous avons défini la classe série (vu plus haut) mais également la classe centrale: App
+
+\begin{table}[h]
+\begin{lstlisting}
+-- App
+App = Class:new()
+
+function App:__new(name)
+    -- Initialize App
+    self.name = name
+end
+
+function App:setup()
+    return
+end
+
+function App:loop()
+    return
+end
+
+function App:run()
+    self:println("Run : ".. self.name)
+    self:setup()
+    while self:condition()do
+        self:loop()
+    end
+    collectgarbage()
+end
+\end{lstlisting}
+\caption{Classe centrale $App$}
+\end{table}
+
+Un programme utilisant Easy-eLua n’aura qu'à redéfinir le comportement de setup() et de loop() (voir les exemples plus loin). 
+Ce qu'il faut faire en plus par rapport au modèle Arduino, est l’instanciation d’un nouvel objet $App$, puis on l'appelle à la méthode run(). 
+Le lancement est donc explicite. L’idée sous-jacente est la possibilité d’avoir plusieurs applications dans un même programme.
+Et le choix de laquelle lancer pourra se faire sur certaines conditions. 
+
+\section{Fonctions relatives au temps}
+
+Deux fonctionnalités intéressantes pour un programme ont été mises au point. 
+La première est la durée d’exécution du programme. Depuis combien de temps il tourne. Ça permet généralement de différer dans le temps 
+certaines tâches. La seconde est la possibilité d'attendre passivement (delay()), ce qui est vital si on ne veut pas surcharger le CPU 
+(attente active avec un while).
+
+Ces fonctionnalités sont plus au moins disponibles dans eLua.
+\newpage
+\begin{table}[h]
+\begin{lstlisting}
+function delay(period)
+    -- period in milliseconds
+    tmr.delay(0,period*1000)
+end
+
+function delayMicroseconds(period)
+    -- period in us
+    tmr.delay(0, period)
+end
+\end{lstlisting}
+\caption{Fonction $delay$}
+\end{table}
+
+L'implémentation utilise le module timer de eLua. Lors du lancement de l'application, 
+on mémorise le compteur d’un timer, pour que l'on puisse retrouver, par différence, la durée d'exécution:
+
+\begin{table}[h]
+\begin{lstlisting}
+function App:run()
+    self:println("Run : ".. self.name)
+    self.start_counter=tmr.start(self.timerid)
+    [...]
+end
+function App:micros()
+    -- Number of microseconds since the program started
+    time_now=tmr.read(self.timerid)
+    return tmr.gettimediff(self.timerid,self.start_counter,time_now)
+end
+\end{lstlisting}
+\caption{Utilisation du module timer}
+\end{table}
+
+\section{Le Shell}
+
+Le Shell est un des avantages indéniables de l'environnement lua. On peut l'utiliser pour exécuter un interprète 
+lua qui tourne directement sur la carte. On peut ainsi écrire des programmes dynamiquement, et par extension utiliser Easy-eLua par ce moyen.
+
+Voici un exemple ``HelloWorld'' utilisant Easy-eLua: 
+
+\begin{table}[h]
+\begin{lstlisting}
+eLua#lua
+Press CTRL+Z to exitLua
+Lua5.1.4  Copyright(C)1994-2011 Lua.org, PUC-Rio
+>require("arduino_wraper")
+>app=App:new("Hello World!")
+>app:run()
+Run: Hello World
+\end{lstlisting}
+\caption{Exemple ``Helllo World''}
+\end{table}
+
+
+
+
