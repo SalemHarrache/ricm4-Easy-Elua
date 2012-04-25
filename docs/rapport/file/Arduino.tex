@@ -12,9 +12,10 @@
 \end{figure}
 
 Le système Arduino \footnote{Le projet Arduino a reçu un titre honorifique à l'Ars Electronica 2006, dans la catégorie Digital Communities} 
-est une plateforme \textit{open-source} d'électronique programmée basée sur une carte à microcontrôleur de la famille AVR\footnote{}, et sur un environnement
+est une plateforme \textit{open-source} d'électronique programmée basée sur une carte à microcontrôleur de la famille AVR\footnote{
+Cœur du processeur et famille de microcontrôleurs}, et sur un environnement
 de développement intégré qui permet d'écrire, compiler et transférer un programme vers la carte. Ce logiciel utilise la technique du Processing/Wiring
-\footnote{}.
+\footnote{Processing est un langage de programmation et un environnement de développement}.
 
 Avec le système Arduino on peut réaliser divers tâches, par exemple le développement des objets interactifs indépendants: le prototypage rapide. Aussi,  
 la domotique, qui grâce aux différents interrupteurs/capteurs permet de contrôler plusieurs sorties matérielles: contrôle des appareils domestiques, 
@@ -60,14 +61,6 @@ utilisateur plus experimentés en circuits peuvent apporter des améliorations �
 \end{center}
 \end{figure}
 
-
-\begin{figure}[h]
-\begin{center}
- \includegraphics[scale=0.5]{figure/Arduino/arduinoLogiciel1.png}
-\caption{Environnement de travail: Logiciel Arduino}
-\end{center}
-\end{figure}
-
 Un programme en langage Arduino doit obligatoirement être composé de ces deux fonctions:
 \begin{itemize}
  \item la fonction d'initialisation $setup()$ qui est exécutée une seule fois au démarrage.
@@ -87,10 +80,10 @@ type nom_fonction (arguments) {
 
 \begin{table}[h]
 \begin{lstlisting}
- /*
+/*
   Blink
   Turns on an LED on for one second, then off for one second, repeatedly.
- */
+*/
 void setup() {                
   // initialize the digital pin as an output.
   // Pin 13 has an LED connected on most Arduino boards:
@@ -107,6 +100,14 @@ void loop() {
 \caption{Exemple Blink pour Arduino}
 \end{table}
 
+L'utilisation du logiciel est facile et très clair, ce qui est très important a rétenir c'est de bien vérifier avant d'envoyer le programme à la carte,
+si on utilise le bon port et la bonne carte.
 
-
+\begin{figure}[h]
+\begin{center}
+ \includegraphics[scale=0.3]{figure/Arduino/logiciel.png}
+\includegraphics[scale=0.5]{figure/Arduino/logiciel1.png}
+\caption{Environnement de travail: choix de la carte et du port}
+\end{center}
+\end{figure}
 
