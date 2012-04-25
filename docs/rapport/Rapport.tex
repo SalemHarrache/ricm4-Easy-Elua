@@ -52,12 +52,11 @@
 
 
 \mainmatter 
-%\setcounter{page}{1}\pagenumbering{arabic} 
+\setcounter{page}{1}
+\pagenumbering{arabic} 
 \pagestyle{fancytext}
 
-\addcontentsline{toc}{chapter}{Fiche technique}
-\markboth{Fiche technique}{}
-\input{file/Fiche} 
+
 
 \addcontentsline{toc}{chapter}{Introduction}
 \markboth{Introduction}{}
@@ -65,7 +64,7 @@
 
 
 
-\addcontentsline{toc}{chapter}{Approche Arduino}
+%\addcontentsline{toc}{chapter}{Approche Arduino}
 \input{file/Arduino}
 
 %\addcontentsline{toc}{chapter}{elua sur STM32F4-DISCOVERY}
@@ -107,8 +106,10 @@
 \appendix	
 
 	
-\addcontentsline{toc}{chapter}{Appendix}
-%\input{file/app1} 
+\addcontentsline{toc}{chapter}{Annexe}
+%\addcontentsline{toc}{chapter}{Fiche technique}
+%\markboth{Fiche technique}{}
+\input{file/Fiche} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
