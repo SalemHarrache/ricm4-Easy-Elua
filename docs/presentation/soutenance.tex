@@ -73,7 +73,7 @@ Didier \textsc{Donsez} \\
 \frametitle{Introduction : Présentation carte STM32F4-DISCOVERY}
 Partie Elizabeth
 
-Note salem : présenter brivement les caracteristiques et puis finir sur le fait que
+Note salem : présenter brièvement les caractéristiques et puis finir sur le fait que
 c'est compliqué de programmer dessus pour un novice
 \begin{center}
  \includegraphics[scale=0.1]{../images/stm32f4_discovery.jpg}
@@ -84,10 +84,10 @@ c'est compliqué de programmer dessus pour un novice
 \begin{frame}
 \frametitle{Introduction : Présentation Arduino}
 Partie Elizabeth
-Note salem : Le site est bien fait, puis y a des presentation sur internet de la carte
-donc easy. Dire qu'il y a deux methode a implementer (loop et setup) et puis un point sur
-l'open source. Meme les carte en elle meme sont open source, ce qui est vraiment appreciable
-pour tout ingenieurs qui veut se lancer dans un nouveau projet etc...
+Note salem : Le site est bien fait, puis y a des présentations sur internet de la carte
+donc easy. Dire qu'il y a deux méthodes à implémenter (loop et setup) et puis un point sur
+l'open source. Même les cartes en elles-même sont open source, ce qui est vraiment appréciable
+pour tout ingénieur qui veut se lancer dans un nouveau projet etc...
 \begin{center}
  \includegraphics[scale=0.1]{../images/stm32f4_discovery.jpg}
 \end{center}
@@ -102,8 +102,8 @@ partie Elizabeth
 architecture : \url{http://www.eluaproject.net/doc/v0.8/en_arch_overview.html}
 
 
-la utilise le schéma et dis que notre mission c'etait d'evaluer le portage, et dire
-qu'on a contacté ton James (xD) et qu'on a reussis a le faire travailler pour nous xD
+Là utilise le schéma et dis que notre mission c'était d'évaluer le portage, et dire
+qu'on a contacté ton James (xD) et qu'on a réussi à le faire travailler pour nous xD
 
 C'est important je pense de le mentionner :)
 \begin{center}
@@ -118,20 +118,20 @@ C'est important je pense de le mentionner :)
 \begin{enumerate}
  \item Phase I
 \begin{itemize}
-\item Premiers sprints assez long et peu productif
+\item Premiers sprints assez longs et peu productifs
 \begin{itemize}
-\item Recherche d'information sur eLua et d'eventuelles portages pour STM32
+\item Recherche d'informations sur eLua et d'éventuels portages pour STM32
 \item Evaluation de la faisabilité
-\item Initiation à la prgramation avec la lib stlink sur linux
+\item Initiation à la programmation avec la lib stlink sur linux
 \end{itemize}
-\item Concertation hebdomdaire sur l'avancement
+\item Concertation hebdomadaire sur l'avancement
 \item Discussions avec notre tuteur de stage
 \end{itemize}
  \item Phase II
 \begin{itemize}
 \item Sprints très courts
 \item Conception de l'architecure du projet
-\item Developpement d'outils de travail (instalation, flash)
+\item Développement d'outils de travail (installation, flash)
 \item Utilisation d'un gestionnaire de version
 \end{itemize}
 \end{enumerate}
@@ -155,16 +155,16 @@ C'est important je pense de le mentionner :)
 \item digitalWrite() $\to$ écriture d'une valeur HIGH/LOW (1/0)
 \item digitalRead() $\to$ lecture
 \end{itemize}
-\item Commincation Série
+\item Communication Série
 \begin{itemize}
-\item Serial::begin() $\to$ initialiser la connexion serie
+\item Serial::begin() $\to$ initialiser la connexion série
 \item Serial::read()
 \item Serial::write()
 \item Serial::print()
 \end{itemize}
 \item Time
 \begin{itemize}
-\item millis()  $\to$ Durée d'execution du programme
+\item millis()  $\to$ Durée d'exécution du programme
 \item micros()
 \item delay()  $\to$ Attente passive
 \item delayMicroseconds()
@@ -178,7 +178,7 @@ C'est important je pense de le mentionner :)
 \begin{enumerate}
  \item Programmation orienteé objects
  \item Lua et la métaprogrammation $\to$ Redéfinition du type ``Class``
- \item Introduction de l'objet App qui s'execute avec un contexte
+ \item Introduction de l'objet App qui s'exécute avec un contexte
 \end{enumerate}
 
 \scriptsize{\begin{lstlisting}
@@ -318,7 +318,7 @@ Couplé à la puissance d'eLua, Easy-eLua permet :
 \item Débuter dans la programmation pour l'embarqué.
 \item Portabilité : Le code Lua produit est compatible avec différentes architectures supportant elua.
 \item Le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement. Testez vos idées directement sans besoin de simulations ou de futures modifications.
-\item Fléxibilité : Lua, langage de programmation de haut niveau, permet toute sorte d'utilisation.
+\item Flexibilité : Lua, langage de programmation de haut niveau, permet toute sorte d'utilisation.
 \end{itemize}
 \end{frame}
 
