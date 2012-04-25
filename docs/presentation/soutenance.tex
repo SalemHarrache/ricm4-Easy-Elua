@@ -36,7 +36,8 @@
 
 
 %\usecolortheme{whale}
-\centerline{\includegraphics[scale=0.4]{../images/easy_elua_logo}}
+%\centerline{\includegraphics[scale=0.4]{../images/easy_elua_logo}}
+
 
 \title{Projet innovant RICM4: Easy-eLua}
 \author{Elizabeth \textsc{Paz} \\ Salem \textsc{Harrache}}
@@ -54,9 +55,11 @@ Didier \textsc{Donsez} \\
 
 \begin{document}
 
-
 \begin{frame}
- \maketitle
+\begin{center}
+\includegraphics[scale=0.4]{../images/easy_elua_logo}
+\end{center}
+\titlepage
 \end{frame}
 
 \begin{frame}
@@ -68,9 +71,9 @@ Didier \textsc{Donsez} \\
 \subsection{Présentation carte STM32F4-DISCOVERY}
 \begin{frame}
 \frametitle{Introduction : Présentation carte STM32F4-DISCOVERY}
-Partie Elizabeth 
+Partie Elizabeth
 
-Note salem : présenter brivement les caracteristiques et puis finir sur le fait que 
+Note salem : présenter brivement les caracteristiques et puis finir sur le fait que
 c'est compliqué de programmer dessus pour un novice
 \begin{center}
  \includegraphics[scale=0.1]{../images/stm32f4_discovery.jpg}
@@ -80,8 +83,8 @@ c'est compliqué de programmer dessus pour un novice
 \subsection{Présentation Arduino}
 \begin{frame}
 \frametitle{Introduction : Présentation Arduino}
-Partie Elizabeth 
-Note salem : Le site est bien fait, puis y a des presentation sur internet de la carte 
+Partie Elizabeth
+Note salem : Le site est bien fait, puis y a des presentation sur internet de la carte
 donc easy. Dire qu'il y a deux methode a implementer (loop et setup) et puis un point sur
 l'open source. Meme les carte en elle meme sont open source, ce qui est vraiment appreciable
 pour tout ingenieurs qui veut se lancer dans un nouveau projet etc...
@@ -95,11 +98,11 @@ pour tout ingenieurs qui veut se lancer dans un nouveau projet etc...
 \frametitle{Introduction : Présentation eLua}
 partie Elizabeth
 
-\url{http://www.eluaproject.net/overview} + 
+\url{http://www.eluaproject.net/overview} +
 architecture : \url{http://www.eluaproject.net/doc/v0.8/en_arch_overview.html}
 
 
-la utilise le schéma et dis que notre mission c'etait d'evaluer le portage, et dire 
+la utilise le schéma et dis que notre mission c'etait d'evaluer le portage, et dire
 qu'on a contacté ton James (xD) et qu'on a reussis a le faire travailler pour nous xD
 
 C'est important je pense de le mentionner :)
@@ -150,7 +153,7 @@ C'est important je pense de le mentionner :)
 \begin{itemize}
 \item pinMode() $\to$ déclarer les broches en entrée ou en sortie
 \item digitalWrite() $\to$ écriture d'une valeur HIGH/LOW (1/0)
-\item digitalRead() $\to$ lecture 
+\item digitalRead() $\to$ lecture
 \end{itemize}
 \item Commincation Série
 \begin{itemize}
@@ -162,7 +165,7 @@ C'est important je pense de le mentionner :)
 \item Time
 \begin{itemize}
 \item millis()  $\to$ Durée d'execution du programme
-\item micros() 
+\item micros()
 \item delay()  $\to$ Attente passive
 \item delayMicroseconds()
 \end{itemize}
@@ -314,7 +317,7 @@ Couplé à la puissance d'eLua, Easy-eLua permet :
 \begin{itemize}
 \item Débuter dans la programmation pour l'embarqué.
 \item Portabilité : Le code Lua produit est compatible avec différentes architectures supportant elua.
-\item Le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement. Testez vos idées directement sans besoin de simulations ou de futures modifications. 
+\item Le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement. Testez vos idées directement sans besoin de simulations ou de futures modifications.
 \item Fléxibilité : Lua, langage de programmation de haut niveau, permet toute sorte d'utilisation.
 \end{itemize}
 \end{frame}
