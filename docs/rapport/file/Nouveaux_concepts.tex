@@ -12,7 +12,6 @@ Lua n'est pas pourvu de type ``class'', mais il permet de programmer le comporte
 Autrement dit, il est certes très léger, mais c'est un langage tout désigné pour la méta-programmation. 
 Le mécanisme de classe, et d’héritage est défini par les lignes suivantes:
 
-\newpage
 \begin{table}[h]
 \begin{lstlisting}
 function Class:new(super)
@@ -91,7 +90,7 @@ end
 \caption{Classe centrale $App$}
 \end{table}
 
-Un programme utilisant Easy-eLua n’aura qu'à redéfinir le comportement de setup() et de loop() (voir les exemples plus loin). 
+Un programme utilisant Easy-eLua n’aura qu'à redéfinir le comportement de setup() et de loop() (voir les exemples dans le chapitre ~\ref{exemples}). 
 Ce qu'il faut faire en plus par rapport au modèle Arduino, est l’instanciation d’un nouvel objet $App$, puis on l'appelle à la méthode run(). 
 Le lancement est donc explicite. L’idée sous-jacente est la possibilité d’avoir plusieurs applications dans un même programme.
 Et le choix de laquelle lancer pourra se faire sur certaines conditions. 

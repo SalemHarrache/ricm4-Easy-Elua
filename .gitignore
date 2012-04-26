@@ -2,9 +2,13 @@
 *.aux
 *.log
 *.nav
+*.lof
+*.lot
+*.nlo
 *.out
 *.snm
 *.toc
+*.thm
 *.tex.backup
 env
 activate_env.sh
