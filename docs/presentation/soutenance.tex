@@ -68,17 +68,16 @@ Didier \textsc{Donsez} \\
 \end{frame}
 
 \section{Introduction}
-\subsection{Présentation carte STM32F4-DISCOVERY}
-\begin{frame}
-\frametitle{Introduction : Présentation carte STM32F4-DISCOVERY}
-Partie Elizabeth
-
-Note salem : présenter brièvement les caractéristiques et puis finir sur le fait que
-c'est compliqué de programmer dessus pour un novice
-\begin{center}
- \includegraphics[scale=0.1]{../images/stm32f4_discovery.jpg}
-\end{center}
-\end{frame}
+%\subsection{Présentation carte STM32F4-DISCOVERY}
+%\begin{frame}
+%\frametitle{Introduction : Présentation carte STM32F4-DISCOVERY}
+%Partie Elizabeth
+%Note salem : présenter brièvement les caractéristiques et puis finir sur le fait que
+%c'est compliqué de programmer dessus pour un novice
+%\begin{center}
+ %\includegraphics[scale=0.1]{../images/stm32f4_discovery.jpg}
+%\end{center}
+%\end{frame}
 
 \subsection{Présentation Arduino}
 \begin{frame}
@@ -91,31 +90,40 @@ c'est compliqué de programmer dessus pour un novice
 \textbf{Principales avantages: } peu coûteux, multi-plateforme, le logiciel et le matériel sont open source et extensibles, etc \ldots \\
 \vspace{0.5cm}
 \textbf{Utilisation: } deux méthodes à implementer \textit{obligatoirement}: loop() et setup().
-%Partie Elizabeth
-%Note salem : Le site est bien fait, puis y a des présentations sur internet de la carte
-%donc easy. Dire qu'il y a deux méthodes à implémenter (loop et setup) et puis un point sur
-%l'open source. Même les cartes en elles-même sont open source, ce qui est vraiment appréciable
-%pour tout ingénieur qui veut se lancer dans un nouveau projet etc...
-%\begin{center}
- %\includegraphics[scale=0.1]{../images/stm32f4_discovery.jpg}
-%\end{center}
+
 \end{frame}
 
 \subsection{Présentation eLua}
 \begin{frame}
 \frametitle{Introduction : Présentation eLua}
-partie Elizabeth
 
-\url{http://www.eluaproject.net/overview} +
-architecture : \url{http://www.eluaproject.net/doc/v0.8/en_arch_overview.html}
+\textbf{Lua} est un langage de script libre, réflexif et impératif. But: pouvoir être embarqué au sein d'applications et les étendre. \\
+\vspace{0.5cm}
+\textbf{eLua:} adopte le langage de programmation Lua et propose une implémentation complète de celui-ci pour les systèmes embarqués. \\
 
-
-Là utilise le schéma et dis que notre mission c'était d'évaluer le portage, et dire
-qu'on a contacté ton James (xD) et qu'on a réussi à le faire travailler pour nous xD
-
-C'est important je pense de le mentionner :)
 \begin{center}
- \includegraphics[scale=0.1]{../images/stm32f4_discovery.jpg}
+ \includegraphics[scale=0.55]{../images/eLua/Lua.JPG} \ \quad
+ \includegraphics[scale=0.3]{../images/eLua/logo_eLua.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Introduction : Présentation eLua}
+
+\textbf{Principales avantages de l'utilisation de eLua: } un contrôle absolu des plateformes, portabilité du code, développement autonome, flexibilité,
+open source, etc \ldots \\
+\vspace{0.5cm}
+\textbf{Architecture de eLua:} composé de façon a être le plus portable possible en suivant de près certaines de règles et ayant toujours du code qui sera
+commun a toutes les plateformes.
+
+\end{frame}
+
+
+%Schema
+\begin{frame}
+\frametitle{Introduction : Présentation eLua}
+\begin{center}
+ \includegraphics[scale=0.55]{../images/eLua/schema.png} 
 \end{center}
 \end{frame}
 
