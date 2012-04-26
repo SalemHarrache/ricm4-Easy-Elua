@@ -17,9 +17,9 @@ Cette fonction existe déjà dans eLua, mais elle porte un autre nom, le portage
 \begin{table}[h]
 \begin{lstlisting}
 function pinMode(pin, mode)
-           if mode == OUTPUT or mode == INPUT then
-               pio.pin.setdir(mode, pin)
-           end
+    if mode == OUTPUT or mode == INPUT then
+        pio.pin.setdir(mode, pin)
+    end
 end
 \end{lstlisting}
 \caption{Fonction $pinMode$}
@@ -31,9 +31,9 @@ le portage ne pose pas de problème puisque cette fonction (comme on peut s’en
 \begin{table}[h]
 \begin{lstlisting}
 Function digitalWrite(pin, value)
-	    if value == HIGH or value == LOW then
-              pio.pin.setval( value, pin )
-	    end
+    if value == HIGH or value == LOW then
+        pio.pin.setval( value, pin )
+    end
 end
 \end{lstlisting}
 \caption{Fonction $digitalWrite$}
@@ -43,7 +43,7 @@ end
 \begin{table}[h]
 \begin{lstlisting}
 functiondigitalRead(pin)
-          return pio.pin.getval( pin )
+    return pio.pin.getval( pin )
 end
 \end{lstlisting}
 \caption{Fonction $digitalRead$}
@@ -104,7 +104,7 @@ function SerialPort:begin(baud)
     -- thebaud parameter
     self.baud = baud or self.baud
     return uart.setup(self.uartid,self.baud,self.databits,self.parity,
-                                                       self.stopbits)
+                                                          self.stopbits)
 end
 \end{lstlisting}
 \caption{Fonction $begin$}
@@ -117,22 +117,17 @@ qui permet d’envoyer des données avec différents formatages possibles:
 \begin{lstlisting}
 functionSerialPort:print(value,format)
     -- Prints data to the serial port as human-readable ASCII text.
-    -- This method can take many forms. Numbers are printed using 
-	an ASCII
-    -- character for each digit. Floats are similarly printed 
-	as ASCII digits,
-    -- defaulting to two decimal places. Bytes are sent as a 
-	single character.
+    -- This method can take many forms. Numbers are printed using an ASCII
+    -- character for each digit. Floats are similarly printed as ASCII digits,
+    -- defaulting to two decimal places. Bytes are sent as a single character.
     -- Characters and strings are sent as is. For example:
     -- SerialPort.print(78) gives "78"
     -- SerialPort.print(1.23456) gives "1.23"
     -- SerialPort.print('N') gives "N"
     -- SerialPort.print("Hello world.") gives "Hello world."
 
-    -- An optional second parameter specifies the base (format) 
-	to use;
-    -- permitted values are BIN (binary, or base 2), OCT (octal, 
-	or base 8),
+    -- An optional second parameter specifies the base (format) to use;
+    -- permitted values are BIN (binary, or base 2), OCT (octal, or base 8),
     -- DEC (decimal, or base 10), HEX (hexadecimal, or base 16). 
     -- For floating point numbers, this parameter specifies
     -- the number of decimal places  to use. For example:
