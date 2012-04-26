@@ -18,35 +18,35 @@ Cœur du processeur et famille de microcontrôleurs}, et sur un environnement
 de développement intégré qui permet d'écrire, compiler et transférer un programme vers la carte. Ce logiciel utilise la technique du Processing/Wiring
 \footnote{Processing est un langage de programmation et un environnement de développement}.
 
-Avec le système Arduino on peut réaliser divers tâches, par exemple le développement des objets interactifs indépendants: le prototypage rapide. Aussi,
-la domotique, qui grâce aux différents interrupteurs/capteurs permet de contrôler plusieurs sorties matérielles: contrôle des appareils domestiques,
+Avec le système Arduino on peut réaliser diverses tâches, par exemple le développement des objets interactifs indépendants : le prototypage rapide. Aussi,
+la domotique, qui grâce aux différents interrupteurs/capteurs permet de contrôler plusieurs sorties matérielles : contrôle des appareils domestiques,
 pilotage de robot, etc \ldots ou même charger des batteries par l'analyse et la production des signaux éléctriques.
-De plus, il peut communiquer avec des logiciels tournant sur l'ordinateur tel que Macromedia Flash, Processing, MaxMSP, etc \ldots.
+De plus, il peut communiquer avec des logiciels tournant sur l'ordinateur tels que Macromedia Flash, Processing, MaxMSP, etc \ldots.
 
 Le langage de programmation Arduino est une implémentation de Wiring, une plateforme de développement similaire, qui est basée sur l'environnement
 multimédia de programmation Processing.
 
-Les cartes électroniques sont accesibles a tous, elles peuvent être achetées pré-assemblées ou être fabriquées manuellement, tout en ayant la totalité des
-informations nécessaire à l'assemblage.
+Les cartes électroniques sont accessibles à tous, elles peuvent être achetées pré-assemblées ou être fabriquées manuellement, tout en ayant la totalité des
+informations nécessaires à l'assemblage.
 
 \section{Avantages d'utilisation de Arduino}
 
 Le système Arduino a simplifié la façon de travailler avec les microcontrôleurs, en offrant plusieurs avantages pour les enseignants, les étudiants et
-les amateurs intéressés par d'autres systèmes. Ce système prend en charge des détails compliqués de la programmation des microcontrôleurs et les intègrent
-dans une présentation facile à utiliser. Voici, plusieurs avantages que propose Arduino:
+les amateurs intéressés par d'autres systèmes. Ce système prend en charge des détails compliqués de la programmation des microcontrôleurs et les intègre
+dans une présentation facile à utiliser. Voici, plusieurs avantages que propose Arduino :
 
 \begin{description}
  \item[Peu coûteux:] En comparaison à d'autres plateformes les cartes Arduino sont peu coûteuses, les moins chères sont les versions qui peuvent être
 assemblées à la main.
  \item[Multi-plateforme:] Le logiciel de programmation des modules Arduino est une application Java, libre et qui peut tourner dans plusieurs systèmes
-d'exploitation tel que Linux, Windows et Mac.
+d'exploitation tels que Linux, Windows et Mac.
  \item[Environnement de programmation clair et simple:] Le logiciel est facile à utiliser pour les débutants ( nous avons eu l'occasion de le tester lors de
 l'initiation à l'Arduino proposé par Olivier Richard); tout en restant flexible pour des utilisations avancées.
- \item[Logiciel Open Source et extensible:] Le logiciel et le langage Arduino sont publiés sous licence Open Source et sont donc disponible à tous, ce qui
+ \item[Logiciel Open Source et extensible:] Le logiciel et le langage Arduino sont publiés sous licence Open Source et sont donc disponibles à tous, ce qui
 offre la possibilité de compléter et/ou améliorer le projet. Le langage Arduino, qui utilise le langage C++, peut être étendu grâce aux librairies C++.
  \item[Matériel Open Source et extensible:] La version sur plaque d'essai de la carte Arduino peut être achetée à très bas coût et peut être montée par
-n'importe quel utilisateur, elle a pour but de comprendre comment la carte fonctionne. De plus, tous les schèmas de modules Arduino sont publiés. Dès lors, les
-utilisateurs plus experimentés en embarqué peuvent apporter des améliorations à leurs montages.
+n'importe quel utilisateur, elle a pour but de comprendre comment la carte fonctionne. De plus, tous les schémas de modules Arduino sont publiés. Dès lors, les
+utilisateurs plus expérimentés en embarqué peuvent apporter des améliorations à leurs montages.
 \end{description}
 
 
@@ -61,13 +61,13 @@ utilisateurs plus experimentés en embarqué peuvent apporter des améliorations
 \end{center}
 \end{figure}
 
-Un programme en langage Arduino doit obligatoirement être composé de ces deux fonctions:
+Un programme en langage Arduino doit obligatoirement être composé de ces deux fonctions :
 \begin{itemize}
  \item la fonction d'initialisation $setup()$ qui est exécutée une seule fois au démarrage.
  \item la fonction "boucle sans fin" loop() qui est exécutée en boucle une fois que la fonction setup() a été exécutée une fois.
 \end{itemize}
 
-Puis, si besoin, autres fonctions peuvent être crées en suivant ce schèma:
+Puis, si besoin, d'autres fonctions peuvent être créées en suivant ce schéma :
 \begin{table}[h]
 \begin{lstlisting}
 type nom_fonction (arguments) {
@@ -100,7 +100,7 @@ void loop() {
 \caption{Exemple Blink pour Arduino}
 \end{table}
 
-L'utilisation du logiciel est facile et très clair, ce qui est très important à rétenir c'est de bien vérifier avant d'envoyer le programme à la carte,
+L'utilisation du logiciel est facile et très claire, ce qui est très important à retenir c'est de bien vérifier avant d'envoyer le programme à la carte,
 si on utilise le bon port et la bonne carte.
 
 \begin{figure}[h]
@@ -110,4 +110,3 @@ si on utilise le bon port et la bonne carte.
 \caption{Environnement de travail: choix de la carte et du port}
 \end{center}
 \end{figure}
-
