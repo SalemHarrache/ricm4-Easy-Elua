@@ -123,7 +123,7 @@ commun a toutes les plateformes.
 \begin{frame}
 \frametitle{Introduction : Présentation eLua}
 \begin{center}
- \includegraphics[scale=0.55]{../images/eLua/schema.png} 
+ \includegraphics[scale=0.55]{../images/eLua/schema.png}
 \end{center}
 \end{frame}
 
@@ -163,7 +163,7 @@ commun a toutes les plateformes.
 
 \subsection{Fonctions portées}
 \begin{frame}
-\frametitle{Fonctions portées}
+\frametitle{Fonctions portées (1)}
 \begin{enumerate}
  \item Entrées/Sorties numériques
 \begin{itemize}
@@ -186,6 +186,24 @@ commun a toutes les plateformes.
 \item delayMicroseconds()
 \end{itemize}
 \end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fonctions portées (2)}
+\begin{table}[h]
+ \begin{tabular}{|l|l|} \hline
+\textbf{Arduino} & \textbf{Easy-eLua} \\ \hline
+Serial::begin() $\to$ & SerialPort:begin() \\ \hline
+Serial::available() $\to$ & SerialPort:readWait() \\
+                          & SerialPort:read() \\ \hline
+Serial::read() $\to$ & SerialPort:read() \\ \hline
+Serial::write() $\to$ & SerialPort:write() \\ \hline
+Serial::print() $\to$ & SerialPort:print() \\ \hline
+Serial::println() $\to$ & SerialPort:println() \\ \hline
+Serial::end() $\to$ & \\ \hline
+Serial::flush() $\to$ & \\ \hline
+ \end{tabular}
+\end{table}
 \end{frame}
 
 \subsection{Nouveaux concepts}
@@ -355,3 +373,4 @@ dans la carte STM32F4-Discovery.
 \end{frame}
 
 \end{document}
+
