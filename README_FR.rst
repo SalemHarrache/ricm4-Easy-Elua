@@ -2,7 +2,7 @@
 Projet innovant RICM4 : Easy-eLua
 =================================
 
-Easy-Elua for STM32F4-DISCOVERY
+Easy-Elua pour STM32F4-DISCOVERY
 
 Description
 ===========
