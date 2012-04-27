@@ -6,7 +6,7 @@ require("arduino_wrapper")
 
 -- the setup routine runs once when you press reset
 function App:setup()
-    -- first visible ASCIIcharacter '!' is number 33:
+    -- first visible ASCII character '!' is number 33:
     self.byte = 33 -- '!' ASCII character
 end
 
