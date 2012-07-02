@@ -1,5 +1,5 @@
 ===================================================
-Easy-eLua : Innovating project by `RICM4 students`_
+Easy-ELua : Innovating project by `RICM4 students`_
 ===================================================
 
 Easy-Elua for ** `STM32F4-DISCOVERY`_ **
