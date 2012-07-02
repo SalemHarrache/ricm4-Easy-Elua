@@ -1,29 +1,33 @@
-=================================
-Projet innovant RICM4 : Easy-eLua
-=================================
+===================================================
+Easy-eLua : Innovating project by `RICM4 students`_
+===================================================
 
-Easy-Elua for STM32F4-DISCOVERY
+Easy-Elua for **`STM32F4-DISCOVERY`_**
+
+.. _`RICM4 students`: http://air.imag.fr/mediawiki/index.php/Main_Page
+.. _`STM32F4-DISCOVERY`: http://www.st.com/internet/evalboard/product/252419.jsp
 
 Description
 ===========
 
-Le but du projet est de simplifier la programmation sur les cartes
-microcontroler STM32F4-DISCOVERY, en proposant une approche Arduino sur le
-projet opensource eLua,  qui implémente Lua sur de nombreuses autres cartes.
-Notre projet consiste à porter en Lua les principales fonctions Arduino, pour
-que n'importe qui venant du monde Arduino, puisse trouver ses repères assez
-rapidement.
+This project aims to make programming easier on microcontroller cards STM32F4-DISCOVERY by 
+offering an Arduino interface of the opensource project eLua, which implements Lua on multiple other cards.
+Our project consists in transcribing the mains functions of Arduino in Lua, so that everyone already using
+Arduino can understand it. 
 
-Couplé à la puissance d'eLua, Easy-eLua permet :
+Combined with the powerful eLua, Easy-eLua offers:
 
-- Portabilité : Le code Lua produit est compatible avec différentes architectures supportant elua.
+-Source code portability: Like in Lua, you program in C, Lua or a mixture of both 
+and your program runs in a wide varied of (sometimes radically different) platforms and architectures supported.
 
-- le RAD pour l'embarqué: Prototyper et expérimenter des applications rapidement. Testez vos idées directement sans besoin de simulations ou de futures modifications.
+-Embedded RAD: Prototype and experiment on a Rapid Aplication Develop model. Test your ideas directly on the target
+platforms and cheap development kits. No need for simulators or future code adaptations.
 
-Récupérer les sources
-=====================
 
-Le code source du projet est disponible sur github :
+Get the sources
+===============
+
+The source code of the project is available on github:
 
 ::
 
@@ -33,10 +37,8 @@ Le code source du projet est disponible sur github :
 Installation
 ============
 
-
-Une fois téléchargé, il faut lancer le script d’installation (debian/fedora)
-qui met en place l'environnement, à savoir Sourcery toolchain et l'utilitaire
-de flash de stlink :
+Once you downloaded it, you need to launch the installation script (debian/fedora) which 
+sets the environment, i.e. Sourcery toolchain and the stlink flash tool:
 
 ::
 
@@ -72,27 +74,28 @@ de flash de stlink :
     -------------------------------------------------------------------------------
     $
 
-Utilisation
-===========
+Use
+===
 
-Le script activate_env.sh permet simplement d'activer à la demande l'environnement pour ne pas polluer le PATH de votre machine. Pour l'utiliser :
+The activate_env.sh script is used to easily activate on demand the environment so that the PATH of your machine doesn't become impaired. How to use it:
 
 ::
 
     $ source activate_env.sh
 
-ou
+or
 
 ::
 
     $ . activate_env.sh
 
+To launch programs on the card, you need to use the flash.sh script followed
+by your file name. The card must be connected via USB on the mini-USB**A** port 
+(power supply).
 
-Pour lancer des programmes sur la carte, il faut utiliser le script flash.sh
-suivi du nom de votre fichier. La carte doit être branchée en USB sur le port mini-USBA (alimentation).
+You need to import the arduino_wrapper.lua file when first launching 
+the program with the instruction require ("arduino_wrapper").
 
-Vous devez importer le fichier arduino_wrapper.lua en début du programme avec
-l'instruction require("arduino_wrapper")
 
 ::
 
@@ -119,25 +122,28 @@ l'instruction require("arduino_wrapper")
 
     $ ./flash.sh examples/blink.lua
 
-Le script s'occupe d'ajouter le fichier arduino_wrapper, de compiler elua, de
-flasher la carte avec l'image générée. Le programme (ici blink.lua) se lance
-automatiquement (parfois il faut appuyer sur reset ou débrancher puis
-rebrancher l'alimentation).
+The script adds the file arduino_wrapper, compiles elua and flashes the card 
+with the generated image. The program (here blink.lua) launches automatically 
+(sometimes you have to press the reset button or unplug and then replug the 
+power supply).
 
-Lancement d'un programme à partir du shell Elua
-===============================================
 
-Le Shell Elua
-~~~~~~~~~~~~~
+Launching a program from the Elua shell
+=======================================
 
-Elua propose un shell embarqué dans lequel vous pouvez tester votre programme
-sans devoir reflasher la carte. Pour cela vous avez besoin d'une liason série.
+The Elua Shell
+~~~~~~~~~~~~~~
+
+Elua offers an embbed shell, which allows you to test your program without 
+reflashing the card. To do so, you need a `serial link`_. 
+
+.. _`serial link`: http://www.futureelectronics.com/fr/technologies/interconnect/usb-to-ttl-rs232-rs422-rs485-cables/Pages/4880316-TTL-232R-5V-WE.aspx?IM=0
 
 * PB6 <-> TX
 * PB7 <-> RX
 * GND <-> Ground
 
-On se connecte avec screen en lançant le script run_shell.sh:
+We connect to the card with screen by launching the run_shell.sh script:
 
 ::
 
@@ -164,8 +170,7 @@ On se connecte avec screen en lançant le script run_shell.sh:
     Press CTRL+Z to exit Lua
     Run : Blink led
 
-On peut également utiliser l'interprète lua pour composer des programmes
-dynamiquement !
+We can also use the lua interpreter to write dynamic programs!
 
 ::
 
@@ -177,11 +182,12 @@ dynamiquement !
     > app:run()
     Run : Hello Word!
 
-Envoyer les scripts via xmodem (sans flash)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Send scripts via xmodem (without flash)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Si la carte est déjà flashée avec elua, vous pouvez envoyer votre script
-Lua par xmodem (avec screen) à l'aide du script send.sh
+If the card is already flashed with elua, you can send your Lua script via 
+xmodem (with screen) using the send.sh script
+
 
 ::
 
@@ -201,9 +207,8 @@ Lua par xmodem (avec screen) à l'aide du script send.sh
     &, dec: 38, hex: 26, oct: 46, bin: 100110
     ', dec: 39, hex: 27, oct: 47, bin: 100111
 
-Pour quitter screen, faites CTRL+A puis K
+To exit screen, press CTRL+A then K
 
-
-Remarque : Il serait possible normalement de sauvegarder le script directement
-sur la carte en spécifiant à recv le chemin, mais pour l'instant ce n'est pas
-supporté pour la STM32F4-DISCOVERY.
+Note: It is usually possible to save the script directly into the card by 
+specifying to recv the path, but for now it is not supported for the 
+STM32F4-DISCOVERY.
