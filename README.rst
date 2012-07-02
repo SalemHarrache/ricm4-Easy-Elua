@@ -2,7 +2,7 @@
 Easy-eLua : Innovating project by `RICM4 students`_
 ===================================================
 
-Easy-Elua for **`STM32F4-DISCOVERY`_**
+Easy-Elua for ** `STM32F4-DISCOVERY`_ **
 
 .. _`RICM4 students`: http://air.imag.fr/mediawiki/index.php/Main_Page
 .. _`STM32F4-DISCOVERY`: http://www.st.com/internet/evalboard/product/252419.jsp
