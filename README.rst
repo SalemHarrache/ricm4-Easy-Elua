@@ -17,11 +17,9 @@ Arduino can understand it.
 
 Combined with the powerful eLua, Easy-eLua offers:
 
-* Source code portability: Like in Lua, you program in C, Lua or a mixture of both 
-and your program runs in a wide varied of (sometimes radically different) platforms and architectures supported.
+* Source code portability: Like in Lua, you program in C, Lua or a mixture of both and your program runs in a wide varied of (sometimes radically different) platforms and architectures supported.
 
-* Embedded RAD: Prototype and experiment on a Rapid Aplication Develop model. Test your ideas directly on the target
-platforms and cheap development kits. No need for simulators or future code adaptations.
+* Embedded RAD: Prototype and experiment on a Rapid Aplication Develop model. Test your ideas directly on the target platforms and cheap development kits. No need for simulators or future code adaptations.
 
 
 Get the sources
